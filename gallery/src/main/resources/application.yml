@@ -1,0 +1,10 @@
+spring:
+  thymeleaf:
+    cache: false
+
+server:
+  port: 9000
+
+gcp:
+  bucket-name: thumbnail-service
+  thumbnail-subfolder: thumbnail

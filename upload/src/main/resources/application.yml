@@ -1,0 +1,14 @@
+spring:
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+gcp:
+  bucket-name: thumbnail-service
+
+thumbnail-service:
+  hostname: image-thumb-generator-service.default
+  port: 8888
