@@ -19,6 +19,12 @@ allprojects {
         maven("https://repo.spring.io/milestone")
     }
 
+
+    ext {
+        set("coroutines-version","0.22.5")
+        set("google-cloud-storage-version","1.35.0")
+    }
+
 }
 
 buildscript {
@@ -33,6 +39,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}") // See https://kotlinlang.org/docs/reference/compiler-plugins.html#kotlin-spring-compiler-plugin
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
     }
+
 }
 
 dependencies {

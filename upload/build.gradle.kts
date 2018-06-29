@@ -6,17 +6,11 @@ plugins {
 
     val kotlinVersion = "1.2.50"
 
-    kotlin("jvm")
-    id("org.jetbrains.kotlin.plugin.spring")
+    kotlin("jvm") apply true
+    id("org.jetbrains.kotlin.plugin.spring") apply true
 
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-}
-
-apply {
-    plugin("kotlin")
-    plugin("kotlin-spring")
-    plugin("io.spring.dependency-management")
+    id("org.springframework.boot") apply true
+    id("io.spring.dependency-management") apply true
 }
 
 java {
@@ -32,24 +26,24 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:${ext["coroutines-version"]}")
 
-        compile(kotlin("stdlib"))
-        compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile(kotlin("stdlib"))
+    compile("org.jetbrains.kotlin:kotlin-reflect")
 
-        compile("org.springframework.boot:spring-boot-starter-web") {
-            exclude(module = "spring-boot-starter-validation")
-        }
-        compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-        compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude(module = "spring-boot-starter-validation")
+    }
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
 
-        compile("org.apache.logging.log4j:log4j-api:2.11.0")
-        compile("org.apache.logging.log4j:log4j-core:2.11.0")
+    compile("org.apache.logging.log4j:log4j-api")
+    compile("org.apache.logging.log4j:log4j-core")
 
-        compile("com.google.cloud:google-cloud-storage:1.35.0")
+    compile("com.google.cloud:google-cloud-storage:${ext["google-cloud-storage-version"]}")
 
-        testCompile("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.2.0")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.2.0")
-        testCompile("org.assertj:assertj-core:3.9.1")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testCompile("org.assertj:assertj-core")
 }
