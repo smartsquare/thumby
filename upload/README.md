@@ -1,8 +1,5 @@
 # image-upload-serivce
 
-
-[![Build Status](https://travis-ci.org/smartsquare/image-upload.svg?branch=master)](https://travis-ci.org/smartsquare/image-upload)
-
 ##### Upload Service for the smart-image project
 
 Simple UI, that uploads an image to a google cloud storage bucket.
