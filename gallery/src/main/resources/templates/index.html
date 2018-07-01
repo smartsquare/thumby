@@ -47,7 +47,7 @@
     <h1 class="my-4 text-center text-lg-left">Thumbnail Gallery</h1>
 
     <div class="row text-center text-lg-left" id="imageContainer">
-
+        <div class="loader" id="spinner">
     </div>
 
 </div>
@@ -85,6 +85,7 @@
         $.get("/image",
             {name: imageLink},
             function (imageData) {
+                $("#spinner").remove();
                 $("#imageContainer").append("<img class='img-fluid img-thumbnail' src='data:image/jpeg;base64," + imageData + "'>")
 
             })
