@@ -1,8 +1,7 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Service
 metadata:
   name: image-upload-service
-  namespace: default
 spec:
   ports:
   - port: 8080
@@ -10,7 +9,6 @@ spec:
     name: http
   selector:
     app: image-upload
-  sessionAffinity: None
   type: NodePort
 
 ---
@@ -23,7 +21,7 @@ spec:
   selector:
     matchLabels:
       app: image-upload
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
