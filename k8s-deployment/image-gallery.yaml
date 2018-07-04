@@ -1,17 +1,15 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Service
 metadata:
   name: image-gallery-service
   namespace: default
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - port: 9000
     protocol: TCP
     name: http
   selector:
     app: image-gallery
-  sessionAffinity: None
   type: NodePort
 
 ---
