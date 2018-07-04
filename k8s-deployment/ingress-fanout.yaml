@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: image-fanout-ingress
+spec:
+  rules:
+  - host: gallery.cluster1.completely-generic-test-domain.de
+    http:
+      paths:
+      - backend:
+          serviceName: image-gallery-service
+          servicePort: 9000
+  - host: upload.cluster1.completely-generic-test-domain.de
+    http:
+      paths:
+      - backend:
+          serviceName: image-upload-service
+          servicePort: 8080
