@@ -11,7 +11,7 @@ spec:
   selector:
     app: image-thumb-generator
   sessionAffinity: None
-  type: NodePort
+  type: ClusterIP
 
 ---
 
