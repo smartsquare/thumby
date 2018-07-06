@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: image-fanout-ingress
+  name: thumby-fanout-ingress
 spec:
   rules:
   # replace 'your-domain.de' with your domain
@@ -9,12 +9,12 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: image-gallery-service
+          serviceName: thumby-gallery-service
           servicePort: 9000
-  # replace 'your-domain.de' with your domain
+   replace 'your-domain.de' with your domain
   - host: upload.cluster1.<your-domain.de>
     http:
       paths:
       - backend:
-          serviceName: image-upload-service
+          serviceName: thumby-upload-service
           servicePort: 8080

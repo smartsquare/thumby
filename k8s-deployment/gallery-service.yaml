@@ -1,7 +1,7 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
-  name: image-gallery-service
+  name: thumby-gallery-service
   namespace: default
 spec:
   ports:
@@ -9,7 +9,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: image-gallery
+    app: thumby-gallery
   type: NodePort
 
 ---
@@ -17,20 +17,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-gallery
+  name: thumby-gallery
 spec:
   selector:
     matchLabels:
-      app: image-gallery
+      app: thumby-gallery
   replicas: 1
   template:
     metadata:
       labels:
-        app: image-gallery
+        app: thumby-gallery
     spec:
       containers:
-      - name: image-gallery-app
-        image: gcr.io/carbide-parser-205909/image-gallery:2
+      - name: thumby-gallery-app
+        image: gcr.io/carbide-parser-205909/gallery-service:1
         ports:
         - containerPort: 9000
         env:

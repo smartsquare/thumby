@@ -1,14 +1,14 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
-  name: image-upload-service
+  name: thumby-upload-service
 spec:
   ports:
   - port: 8080
     protocol: TCP
     name: http
   selector:
-    app: image-upload
+    app: thumby-upload
   type: NodePort
 
 ---
@@ -16,20 +16,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-upload
+  name: thumby-upload
 spec:
   selector:
     matchLabels:
-      app: image-upload
+      app: thumby-upload
   replicas: 3
   template:
     metadata:
       labels:
-        app: image-upload
+        app: thumby-upload
     spec:
       containers:
-      - name: image-upload-app
-        image: gcr.io/carbide-parser-205909/image-upload:4
+      - name: thumby-upload-app
+        image: gcr.io/carbide-parser-205909/upload-service:1
         ports:
         - containerPort: 8080
         command: ["java"]
@@ -39,4 +39,4 @@ spec:
         - /upload-service.jar
         - --gcn.bucket-name=thumbnail-service
         - --thumbnail-service.port=8888
-        - --thumbnail-service.hostname=image-thumb-generator-service.default
+        - --thumbnail-service.hostname=thumby-thumb-generator-service.default
