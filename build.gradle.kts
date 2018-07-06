@@ -1,9 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+
+    val kotlinVersion = "1.2.51"
+
     base
-    kotlin("jvm") version "1.2.50" apply false
-    id("org.jetbrains.kotlin.plugin.spring") version "1.2.50" apply false
+    kotlin("jvm") version "${kotlinVersion}" apply false
+    id("org.jetbrains.kotlin.plugin.spring") version "${kotlinVersion}" apply false
     id("org.springframework.boot") version "2.0.3.RELEASE" apply false
     id("io.spring.dependency-management") version "1.0.5.RELEASE" apply false
 }
@@ -23,13 +26,14 @@ allprojects {
     ext {
         set("coroutines-version","0.22.5")
         set("google-cloud-storage-version","1.35.0")
+        set("kotlin-version","1.2.51")
     }
 
 }
 
 buildscript {
 
-    val kotlinVersion = "1.2.50"
+    val kotlinVersion = "1.2.51"
 
     repositories {
         jcenter()

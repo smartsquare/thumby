@@ -4,8 +4,6 @@ plugins {
     base
     java
 
-    val kotlinVersion = "1.2.50"
-
     kotlin("jvm") apply true
     id("org.jetbrains.kotlin.plugin.spring") apply true
 
