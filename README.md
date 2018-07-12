@@ -1,3 +1,3 @@
 # smart image thumbnail services
 
-[![Build Status](https://travis-ci.org/smartsquare/image-thumbnailer.svg?branch=master)](https://travis-ci.org/smartsquare/image-thumbnailer)
+[![Build Status](https://travis-ci.org/smartsquare/thumby.svg?branch=master)](https://travis-ci.org/smartsquare/thumby)
