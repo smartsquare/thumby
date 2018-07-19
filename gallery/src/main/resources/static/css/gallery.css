@@ -26,3 +26,9 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.img-thumbnail {
+
+    margin: 0.25em;
+
+}
