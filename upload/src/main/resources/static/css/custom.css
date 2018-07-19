@@ -26,7 +26,12 @@ a:hover {
 html,
 body {
     height: 100%;
-    background-color: #333;
+    background-color: transparent;
+    background: url(../image/thumby-bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body {
@@ -39,13 +44,6 @@ body {
     box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
 }
 
-.lead {
-    color: #fff
-}
-
-h3 {
-    color: #fff;
-}
 
 .cover-container {
     max-width: 42em;
