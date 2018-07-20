@@ -1,7 +1,11 @@
 #!/bin/bash
 
+./gradlew clean build
+
 gcpRegistryHost=gcr.io
 gcpProject=$(gcloud config get-value project)
+
+echo "Pushing to repository project: "$gcpProject
 
 cd upload
 docker build -t $gcpRegistryHost/$gcpProject/upload-service:1 .
