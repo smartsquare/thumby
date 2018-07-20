@@ -1,8 +1,10 @@
 package com.sq.image.service
 
+import com.google.cloud.storage.Blob
 import com.google.cloud.storage.BlobId
 import com.google.cloud.storage.Storage
 import com.google.cloud.storage.StorageOptions
+import com.sq.image.gallery.service.ImageInfo
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
@@ -15,8 +17,19 @@ class ImageService(@Value("\${gcp.bucket-name}") val bucket: String,
         val storage = StorageOptions.getDefaultInstance().service
     }
 
-    fun listAllImagesFromBucket(): List<String> {
-        return storage.list(bucket, Storage.BlobListOption.prefix(subfolder)).iterateAll().map { b -> b.name }
+    fun listAllImagesFromBucket(): Map<String, List<ImageInfo>> {
+        val bucketContent = storage.list(bucket, Storage.BlobListOption.prefix(subfolder))
+
+        return bucketContent.iterateAll()
+                .map(this@ImageService::toImageInfo)
+                .groupBy { it.name }
+    }
+
+    fun toImageInfo(imageBLob: Blob): ImageInfo {
+        val path = imageBLob.name
+        val fileName = path.split("/")[1]
+
+        return ImageInfo(fileName, path)
     }
 
     fun retrieveImageByFilename(filename: String): String {

@@ -48,51 +48,54 @@
 
     <div class="row text-center text-lg-left" id="imageContainer">
         <div class="loader" id="spinner">
-    </div>
+        </div>
 
-</div>
-<!-- /.container -->
-
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Smart Image Thumbnail Gallery Service</p>
     </div>
     <!-- /.container -->
-</footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="m-0 text-center text-white">Smart Image Thumbnail Gallery Service</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 
-<script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
 
-    $.get("/image/list", function (data) {
+    <script>
 
-        $.each(data, function (index, imageLink) {
-            loadImage(imageLink)
-        })
+        $.get("/image/list", function (data) {
 
-    });
-
-    loadImage = function (imageLink) {
-        $.get("/image",
-            {name: imageLink},
-            function (imageData) {
-                $("#spinner").remove();
-                $("#imageContainer").append("<div class='img-fluid img-thumbnail' ><img src='data:image/jpeg;base64," + imageData + "'></div>")
-
+            $.each(data, function (index, imageLink) {
+                loadImage(imageLink)
             })
-    }
 
+        });
 
-</script>
+        loadImage = function (imageLink) {
+
+            $.each(imageLink, function (index, image) {
+                $.get("/image",
+                    {name: image.path},
+                    function (imageData) {
+                        $("#spinner").remove();
+                        $("#imageContainer").append("<div class='img-fluid img-thumbnail'><img alt='"+image.name+"' src='data:image/jpeg;base64," + imageData + "'></div>")
+
+                    })
+            })
+
+        }
+
+    </script>
 
 </body>
 
