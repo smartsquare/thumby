@@ -1,0 +1,27 @@
+# gcloud auth application-default login
+
+version: '3'
+services:
+  gallery:
+    build: gallery/.
+    ports:
+     - "9000:9000"
+    volumes:
+     - "~/.config/gcloud:/root/.config/gcloud"
+  upload:
+    build: upload/.
+    ports:
+     - "8080:8080"
+    links:
+     - "thumb-generator:generator"
+    environment:
+     - thumbnail-service.hostname=generator
+     - thumbnail-service.port=8888
+    volumes:
+     - "~/.config/gcloud:/root/.config/gcloud"
+  thumb-generator:
+    build: thumb-generator/.
+    ports:
+     - "8888:8888"
+    volumes:
+     - "~/.config/gcloud:/root/.config/gcloud"
