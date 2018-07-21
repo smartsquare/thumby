@@ -1,5 +1,6 @@
 package com.sq.image.service
 
+import org.apache.logging.log4j.LogManager
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
@@ -9,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class ThumbnailService(@Value("\${thumbnail-service.hostname}") val thumbnailHost: String,
                        @Value("\${thumbnail-service.port}") val thumbnailPort: String) {
 
+    val log = LogManager.getLogger()
     private val restTemplate = RestTemplate()
 
     enum class ScaleType(val urlPart: String) {
@@ -28,6 +30,8 @@ class ThumbnailService(@Value("\${thumbnail-service.hostname}") val thumbnailHos
                         size.width,
                         size.height
                 ).toUri()
+
+        log.info("Trigger thumbnail generator: {}", url)
 
         restTemplate.postForLocation(
                 url,

@@ -1,13 +1,11 @@
-package com.sq.image
+package com.sq.image.generator
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import java.nio.file.Files
-import java.nio.file.Paths
 
 @SpringBootApplication
-class GalleryApp
+class GeneratorApp
 
 fun main(args: Array<String>) {
-    SpringApplication.run(GalleryApp::class.java, *args)
+    SpringApplication.run(GeneratorApp::class.java, *args)
 }
