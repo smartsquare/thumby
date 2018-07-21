@@ -34,6 +34,8 @@ dependencies {
     }
     compile("org.springframework.boot:spring-boot-devtools")
 
+    compile("net.coobird:thumbnailator:0.4.8")
+
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
 
