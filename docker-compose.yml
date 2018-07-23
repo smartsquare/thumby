@@ -1,4 +1,8 @@
+# google cloud authentication,
+# stores login data in ~/.config/gcloud which is mounted to the container
+#
 # gcloud auth application-default login
+#
 
 version: '3'
 services:
@@ -13,15 +17,13 @@ services:
     ports:
      - "8080:8080"
     links:
-     - "thumb-generator:generator"
+     - "generator:generator"
     environment:
      - thumbnail-service.hostname=generator
      - thumbnail-service.port=8888
     volumes:
      - "~/.config/gcloud:/root/.config/gcloud"
-  thumb-generator:
-    build: thumb-generator/.
-    ports:
-     - "8888:8888"
+  generator:
+    build: generator/.
     volumes:
      - "~/.config/gcloud:/root/.config/gcloud"
