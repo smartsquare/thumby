@@ -3,6 +3,7 @@ package com.sq.image.generator.thumbnail
 import com.sq.image.generator.storage.GCloudStorageAdapter
 import net.coobird.thumbnailator.Thumbnails
 import org.springframework.stereotype.Service
+import org.springframework.util.FileSystemUtils
 
 @Service
 class ThumbGenerator(val storageAdapter: GCloudStorageAdapter) {
@@ -16,9 +17,11 @@ class ThumbGenerator(val storageAdapter: GCloudStorageAdapter) {
         val resizedFilePath = image.parent.resolve(newImageName)
         Thumbnails.of(image.toFile())
                 .size(width, height)
-                .toFile(resizedFilePath.toFile());
+                .toFile(resizedFilePath.toFile())
 
         storageAdapter.storeImage(imageName, resizedFilePath)
+
+        FileSystemUtils.deleteRecursively(image.parent)
     }
 
     private fun getResultFileName(imageName: String, width: Int, height: Int): String {
