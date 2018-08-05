@@ -9,12 +9,25 @@ plugins {
 
     id("org.springframework.boot") apply true
     id("io.spring.dependency-management") apply true
+
+    id("com.google.cloud.tools.jib") apply true
+}
+
+jib {
+    from {
+        image = "gcr.io/distroless/java"
+    }
+
+    to {
+        image = "gcr.io/thumby/upload-service"
+    }
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {

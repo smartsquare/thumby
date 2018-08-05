@@ -9,6 +9,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version "${kotlinVersion}" apply false
     id("org.springframework.boot") version "2.0.3.RELEASE" apply false
     id("io.spring.dependency-management") version "1.0.5.RELEASE" apply false
+
+    id("com.google.cloud.tools.jib") version "0.9.8" apply false
 }
 
 allprojects {
