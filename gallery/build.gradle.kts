@@ -22,6 +22,11 @@ jib {
     to {
         image = "gcr.io/thumby/gallery-service"
     }
+
+    container {
+        jvmFlags = listOf("-Djava.security.egd=file:/dev/./urandom")
+        ports = listOf("9000")
+    }
 }
 
 java {

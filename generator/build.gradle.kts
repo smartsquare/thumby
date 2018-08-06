@@ -21,6 +21,11 @@ jib {
     to {
         image = "gcr.io/thumby/generaor-service"
     }
+
+    container {
+        jvmFlags = listOf("-Djava.security.egd=file:/dev/./urandom")
+        ports = listOf("8888")
+    }
 }
 
 java {
