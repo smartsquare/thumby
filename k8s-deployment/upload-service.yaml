@@ -5,8 +5,7 @@ metadata:
 spec:
   ports:
   - port: 8080
-    protocol: TCP
-    name: http
+    name: http-upload
   selector:
     app: upload-service
   type: NodePort
@@ -21,7 +20,7 @@ spec:
   selector:
     matchLabels:
       app: upload-service
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -29,7 +28,7 @@ spec:
     spec:
       containers:
       - name: upload-service
-        image: gcr.io/thumby-2049/upload-service:1
+        image: gcr.io/thumby-2049/upload-service:2
         ports:
         - containerPort: 8080
         args:

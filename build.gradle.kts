@@ -27,7 +27,7 @@ allprojects {
 
     ext {
         set("coroutines-version","0.22.5")
-        set("google-cloud-storage-version","1.35.0")
+        set("google-cloud-storage-version", "1.39.0")
         set("kotlin-version","1.2.51")
     }
 
