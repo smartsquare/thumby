@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: thumby-upload-service
+  name: upload-service
 spec:
   ports:
   - port: 8080
     protocol: TCP
     name: http
   selector:
-    app: thumby-upload
+    app: upload-service
   type: NodePort
 
 ---
@@ -16,20 +16,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: thumby-upload
+  name: upload-service
 spec:
   selector:
     matchLabels:
-      app: thumby-upload
+      app: upload-service
   replicas: 3
   template:
     metadata:
       labels:
-        app: thumby-upload
+        app: upload-service
     spec:
       containers:
-      - name: thumby-upload-app
-        image: gcr.io/carbide-parser-205909/upload-service:1
+      - name: upload-service
+        image: gcr.io/thumby-2049/upload-service:1
         ports:
         - containerPort: 8080
         command: ["java"]
@@ -37,6 +37,6 @@ spec:
         - -Djava.security.egd=file:/dev/./urandom
         - -jar
         - /upload-service.jar
-        - --gcn.bucket-name=thumbnail-service
+        - --gcn.bucket-name=thumby_bucket
         - --thumbnail-service.port=8888
-        - --thumbnail-service.hostname=thumby-thumb-generator-service.default
+        - --thumbnail-service.hostname=generaor-service.default

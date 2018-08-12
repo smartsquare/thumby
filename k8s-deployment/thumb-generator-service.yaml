@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: thumby-thumb-generator-service
+  name: generaor-service
   namespace: default
 spec:
   ports:
@@ -9,7 +9,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: thumby-thumb-generator
+    app: generaor-service
   sessionAffinity: None
   type: ClusterIP
 
@@ -18,20 +18,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: thumby-thumb-generator
+  name: generaor-service
 spec:
   selector:
     matchLabels:
-      app: thumby-thumb-generator
+      app: generaor-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: thumby-thumb-generator
+        app: generaor-service
     spec:
       containers:
-      - name: thumby-thumb-generator-app
-        image: gcr.io/carbide-parser-205909/thumb-generator-service:1
+      - name: generaor-service
+        image: gcr.io/thumby-2049/generaor-service:1
         ports:
         - containerPort: 8888
         env:

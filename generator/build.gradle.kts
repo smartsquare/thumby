@@ -19,7 +19,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/thumby/generaor-service"
+        image = "gcr.io/thumby-2049/generaor-service"
     }
 
     container {

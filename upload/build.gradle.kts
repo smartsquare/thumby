@@ -19,7 +19,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/thumby/upload-service"
+        image = "gcr.io/thumby-2049/upload-service"
     }
 
     container {

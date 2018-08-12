@@ -20,7 +20,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/thumby/gallery-service"
+        image = "gcr.io/thumby-2049/gallery-service"
     }
 
     container {

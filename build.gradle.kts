@@ -34,7 +34,6 @@ allprojects {
 }
 
 buildscript {
-
     val kotlinVersion = "1.2.51"
 
     repositories {
