@@ -29,10 +29,9 @@ spec:
         app: gallery-service
     spec:
       containers:
-      - name: thumby-gallery-app
+      - name: gallery-service
         image: gcr.io/thumby-2049/gallery-service:1
         ports:
         - containerPort: 9000
-        env:
-        - name: BUCKET_NAME
-          value: thumby_bucket
+        args:
+        - --gcp.bucket-name=thumby_bucket

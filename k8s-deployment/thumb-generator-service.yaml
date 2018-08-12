@@ -34,6 +34,5 @@ spec:
         image: gcr.io/thumby-2049/generaor-service:1
         ports:
         - containerPort: 8888
-        env:
-        - name: BUCKET_NAME
-          value: thumbnail-service
+        args:
+        - --gcp.bucket-name=thumby_bucket

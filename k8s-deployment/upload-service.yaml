@@ -32,11 +32,7 @@ spec:
         image: gcr.io/thumby-2049/upload-service:1
         ports:
         - containerPort: 8080
-        command: ["java"]
         args:
-        - -Djava.security.egd=file:/dev/./urandom
-        - -jar
-        - /upload-service.jar
-        - --gcn.bucket-name=thumby_bucket
+        - --gcp.bucket-name=thumby_bucket
         - --thumbnail-service.port=8888
         - --thumbnail-service.hostname=generaor-service.default
