@@ -5,7 +5,7 @@ metadata:
 spec:
   hosts:
   - storage.googleapis.com
-  - 169.254.169.254 #s metadata.google.internal
+  - 169.254.169.254 # metadata.google.internal
   location: MESH_EXTERNAL
   ports:
   - number: 443

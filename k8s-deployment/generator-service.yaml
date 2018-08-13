@@ -1,17 +1,17 @@
 ##################################################################################################
-# Thumby Upload service
+# Thumby Generator service
 ##################################################################################################
 apiVersion: v1
 kind: Service
 metadata:
-  name: generaor-service
+  name: generator-service
   namespace: default
 spec:
   ports:
   - port: 8888
-    name: http2-gallery
+    name: http-gallery
   selector:
-    app: generaor-service
+    app: generator-service
   sessionAffinity: None
   type: ClusterIP
 
@@ -20,20 +20,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: generaor-service
+  name: generator-service
 spec:
   selector:
     matchLabels:
-      app: generaor-service
+      app: generator-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: generaor-service
+        app: generator-service
     spec:
       containers:
-      - name: generaor-service
-        image: gcr.io/thumby-2049/generaor-service:1
+      - name: generator-service
+        image: gcr.io/thumby-2049/generator-service:latest
         ports:
         - containerPort: 8888
         args:

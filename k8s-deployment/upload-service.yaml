@@ -28,10 +28,10 @@ spec:
     spec:
       containers:
       - name: upload-service
-        image: gcr.io/thumby-2049/upload-service:2
+        image: gcr.io/thumby-2049/upload-service:latest
         ports:
         - containerPort: 8080
         args:
         - --gcp.bucket-name=thumby_bucket
         - --thumbnail-service.port=8888
-        - --thumbnail-service.hostname=generaor-service.default
+        - --thumbnail-service.hostname=generator-service.default

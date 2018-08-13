@@ -6,7 +6,7 @@ metadata:
 spec:
   ports:
   - port: 9000
-    name: http2-gallery
+    name: http-gallery
   selector:
     app: gallery-service
   type: NodePort
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: gallery-service
-        image: gcr.io/thumby-2049/gallery-service:1
+        image: gcr.io/thumby-2049/gallery-service:latest
         ports:
         - containerPort: 9000
         args:

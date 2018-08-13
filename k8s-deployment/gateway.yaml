@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: upload-gateway
+  name: thumby-gateway
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -21,10 +21,23 @@ spec:
   hosts:
   - "*"
   gateways:
-  - upload-gateway
+  - thumby-gateway
   http:
-  - route:
+  - match:
+    - uri:
+        exact: /
+    - uri:
+        exact: /upload
+    route:
     - destination:
         host: upload-service
         port:
           number: 8080
+  - match:
+    - uri:
+        exact: /gallery
+    route:
+    - destination:
+        host: gallery-service
+        port:
+          number: 9000

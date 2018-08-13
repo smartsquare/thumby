@@ -7,23 +7,25 @@
 version: '3'
 services:
   gallery:
+    #image: gcr.io/thumby-2049/gallery-service
     build: gallery/.
     ports:
      - "9000:9000"
     volumes:
      - "~/.config/gcloud:/root/.config/gcloud"
   upload:
+    #image: gcr.io/thumby-2049/upload-service
     build: upload/.
     ports:
      - "8080:8080"
     links:
      - "generator:generator"
-    environment:
-     - thumbnail-service.hostname=generator
-     - thumbnail-service.port=8888
+    command:
+      ["--thumbnail-service.hostname=generator", "--thumbnail-service.port=8888", "--gcp.bucket-name=thumby_bucket"]
     volumes:
      - "~/.config/gcloud:/root/.config/gcloud"
   generator:
+    #image: gcr.io/thumby-2049/generator-service
     build: generator/.
     volumes:
      - "~/.config/gcloud:/root/.config/gcloud"
