@@ -23,21 +23,18 @@ spec:
   gateways:
   - thumby-gateway
   http:
+  # prefix gallery route to gallery service
   - match:
     - uri:
-        exact: /
-    - uri:
-        exact: /upload
-    route:
-    - destination:
-        host: upload-service
-        port:
-          number: 8080
-  - match:
-    - uri:
-        exact: /gallery
+        prefix: /gallery
     route:
     - destination:
         host: gallery-service
         port:
           number: 9000
+  # default route to upload service
+  - route:
+    - destination:
+        host: upload-service
+        port:
+          number: 8080
