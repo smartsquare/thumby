@@ -11,7 +11,7 @@ import java.nio.file.Path
 class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") val bucket: String) {
 
     companion object {
-        val storage = StorageOptions.getDefaultInstance().getService()
+        val storage = StorageOptions.getDefaultInstance().service
     }
 
     fun downloadImage(fileName: String): Path {
@@ -19,6 +19,10 @@ class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") val bucket: String) {
 
         val blob = storage
                 .get(bucket, "${fileName}")
+
+        if (blob == null) {
+            throw IllegalArgumentException("Bucket [${bucket}] not found on cloud storage.")
+        }
 
         blob.downloadTo(tempFiles)
 
