@@ -16,7 +16,7 @@ plugins {
 
 jib {
     from {
-        image = "gcr.io/distroless/java"
+        image = "openjdk:8-jre-alpine"
     }
 
     to {
