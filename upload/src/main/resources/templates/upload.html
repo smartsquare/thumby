@@ -68,7 +68,7 @@
 
         $.getJSON("/info", function (json) {
             console.log(json);
-            $('#info').text(`${json.loopbackHostAddress}-${json.loopbackHostName}-${json.port}`)
+            $('#info').text(`${json.localHostAddress}-${json.localHostName}-${json.port}`)
         });
     });
 </script>

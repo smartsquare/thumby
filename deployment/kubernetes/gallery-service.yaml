@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gallery-service
+  namespace: default
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+    name: http
+  selector:
+    app: gallery-service
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gallery-service
+spec:
+  selector:
+    matchLabels:
+      app: gallery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gallery-service
+    spec:
+      containers:
+      - name: gallery-service
+        image: gcr.io/thumby-2049/gallery-service:latest
+        ports:
+        - containerPort: 9000
+        args:
+        - --gcp.bucket-name=thumby_bucket
