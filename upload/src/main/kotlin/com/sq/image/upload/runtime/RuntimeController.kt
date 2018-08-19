@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class RuntimeController(val runtimeInfo: RuntimeServerInformation) {
 
-    @GetMapping("/server")
+    @GetMapping("/info")
     fun serverInfo(): ServerInfo {
         return runtimeInfo.getServerInfo()
+    }
+
+    @GetMapping("/health")
+    fun healthInfo(): String {
+        return "UP"
     }
 }

@@ -21,7 +21,7 @@
     </header>
 
     <main role="main" class="inner cover">
-        <div th:if="${message}" class="alert alert-secondary" role="alert" th:text="${message}" />
+        <div th:if="${message}" class="alert alert-secondary" role="alert" th:text="${message}"/>
 
         <div>
             <form method="POST" enctype="multipart/form-data" action="upload">
@@ -37,19 +37,21 @@
             </form>
         </div>
 
+
     </main>
 
     <footer class="mastfoot mt-auto">
         <div class="inner">
             <p>Image Upload Service</p>
         </div>
+        <div class="info-box">
+            <p id="info"></p>
+        </div>
     </footer>
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
@@ -58,9 +60,16 @@
         crossorigin="anonymous"></script>
 
 <script>
-    $('.custom-file-input').on('change', function () {
-        let fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    $(function () {
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+
+        $.getJSON("/info", function (json) {
+            console.log(json);
+            $('#info').text(`${json.loopbackHostAddress}-${json.loopbackHostName}-${json.port}`)
+        });
     });
 </script>
 
