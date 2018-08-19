@@ -13,7 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 
 @Controller
-class UploadController(val uploadService: UploadService, val thumbnailService: ThumbnailService) {
+class UploadController(val uploadService: UploadService,
+                       val thumbnailService: ThumbnailService) {
 
     val log = LogManager.getLogger()
 

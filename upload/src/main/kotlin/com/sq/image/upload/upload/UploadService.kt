@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 class UploadService(@Value("\${gcp.bucket-name}") val bucket: String) {
 
     companion object {
-        val storage = StorageOptions.getDefaultInstance().getService()
+        val storage = StorageOptions.getDefaultInstance().service
     }
 
     fun upload(file: MultipartFile): String {
@@ -29,7 +29,7 @@ class UploadService(@Value("\${gcp.bucket-name}") val bucket: String) {
                         file.bytes)
 
         // return the public download link
-        return blobInfo.getMediaLink()
+        return blobInfo.mediaLink
     }
 
 }
