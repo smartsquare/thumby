@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gallery-service
-  namespace: default
+  labels:
+    app: gallery-service
 spec:
   ports:
   - port: 9000
-    name: http-gallery
+    name: http
   selector:
     app: gallery-service
   type: NodePort

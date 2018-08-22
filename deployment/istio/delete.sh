@@ -6,3 +6,5 @@ kubectl delete -f gallery-service.yaml
 
 kubectl delete -f gateway.yaml
 
+kubectl delete virtualservice --all
+
