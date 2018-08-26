@@ -1,4 +1,4 @@
-package com.sq.image.upload.runtime
+package com.sq.image.shared.runtime
 
 data class ServerInfo(val port: Int,
                       val localHostAddress: String,

@@ -41,6 +41,8 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
+    compile(project(":shared"))
+
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:${ext["coroutines-version"]}")
 
     compile(kotlin("stdlib"))
@@ -58,8 +60,11 @@ dependencies {
 
     compile("com.google.cloud:google-cloud-storage:${ext["google-cloud-storage-version"]}")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.mockk:mockk:${ext["mockk-version"]}")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.hamcrest:java-hamcrest:${ext["hamcrest-version"]}")
+    testImplementation("com.jayway.jsonpath:json-path:${ext["json-path-version"]}")
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testCompile("org.assertj:assertj-core")
 }

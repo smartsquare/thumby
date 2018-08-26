@@ -2,7 +2,7 @@ package com.sq.image.controller
 
 import com.sq.image.service.ThumbnailService
 import com.sq.image.service.UploadService
-import kotlinx.coroutines.experimental.launch
+import com.sq.image.upload.thumbnail.Size
 import org.apache.logging.log4j.LogManager
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,11 +27,11 @@ class UploadController(val uploadService: UploadService,
         try {
             val publicLink = uploadService.upload(file)
 
-            listOf(ThumbnailService.Size(128, 128),
-                    ThumbnailService.Size(192, 192),
-                    ThumbnailService.Size(256, 256),
-                    ThumbnailService.Size(320, 320))
-                    .forEach { fireThumbnailCreation(file.originalFilename!!, it) }
+            thumbnailService.createThumbnails(file.originalFilename!!,
+                    Size(128, 128),
+                    Size(192, 192),
+                    Size(256, 256),
+                    Size(320, 320))
 
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '${file.originalFilename}' to $publicLink !")
@@ -43,16 +43,6 @@ class UploadController(val uploadService: UploadService,
         }
 
         return "redirect:/"
-    }
-
-    private fun fireThumbnailCreation(originalFilename: String, size: ThumbnailService.Size) {
-        launch {
-            createThumbnail(originalFilename, size)
-        }
-    }
-
-    suspend fun createThumbnail(originalFilename: String, size: ThumbnailService.Size) {
-        thumbnailService.createThumbnail(originalFilename, ThumbnailService.ScaleType.THUMBNAIL, size)
     }
 
 }

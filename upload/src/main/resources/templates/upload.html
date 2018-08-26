@@ -70,6 +70,12 @@
             console.log(json);
             $('#info').text(`${json.localHostAddress}-${json.localHostName}-${json.port}`)
         });
+
+        $.get("/generator-status", function (response) {
+            console.log(response)
+        }).fail(function (response) {
+            console.log(response)
+        })
     });
 </script>
 

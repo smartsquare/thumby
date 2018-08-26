@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["com.sq.image.shared", "com.sq.image.upload"])
 class UploadApp
 
 val log = LogManager.getLogger()

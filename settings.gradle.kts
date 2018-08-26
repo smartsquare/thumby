@@ -1,1 +1,1 @@
-include("upload", "gallery", "generator")
+include("shared", "upload", "gallery", "generator")

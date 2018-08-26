@@ -29,6 +29,9 @@ allprojects {
         set("coroutines-version","0.22.5")
         set("google-cloud-storage-version", "1.39.0")
         set("kotlin-version","1.2.51")
+        set("hamcrest-version", "2.0.0.0")
+        set("json-path-version", "2.4.0")
+        set("mockk-version", "1.8.6")
     }
 
 }

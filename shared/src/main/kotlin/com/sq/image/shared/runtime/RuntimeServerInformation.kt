@@ -1,4 +1,4 @@
-package com.sq.image.upload.runtime
+package com.sq.image.shared.runtime
 
 import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent
 import org.springframework.context.ApplicationListener
@@ -7,12 +7,11 @@ import java.net.InetAddress
 
 
 @Service
-class RuntimeServerInformation(val portListener: PortListener) {
+class RuntimeServerInformation : ApplicationListener<ServletWebServerInitializedEvent> {
 
+    var port = -1
 
     fun getServerInfo(): ServerInfo {
-        val port = portListener.port
-
         val localHostAddress = InetAddress.getLocalHost().hostAddress
         val localHostName = InetAddress.getLocalHost().hostName
         val loopbackHostAddress = InetAddress.getLoopbackAddress().hostAddress
@@ -20,13 +19,6 @@ class RuntimeServerInformation(val portListener: PortListener) {
 
         return ServerInfo(port, localHostAddress, localHostName, loopbackHostAddress, loopbackHostName)
     }
-
-}
-
-@Service
-class PortListener : ApplicationListener<ServletWebServerInitializedEvent> {
-
-    var port = -1
 
     override fun onApplicationEvent(event: ServletWebServerInitializedEvent) {
         port = event.webServer.port

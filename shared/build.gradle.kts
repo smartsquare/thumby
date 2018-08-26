@@ -1,38 +1,33 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     base
     java
+    groovy
 
     kotlin("jvm") apply true
     id("org.jetbrains.kotlin.plugin.spring") apply true
 
     id("org.springframework.boot") apply true
     id("io.spring.dependency-management") apply true
-
-    id("com.google.cloud.tools.jib") apply true
 }
 
+val jar: Jar by tasks
+jar.apply {
+    enabled = true
+}
 
-jib {
-    from {
-        image = "openjdk:8-jre-alpine"
-    }
-
-    to {
-        image = "gcr.io/thumby-2049/gallery-service"
-    }
-
-    container {
-        jvmFlags = listOf("-Djava.security.egd=file:/dev/./urandom")
-        ports = listOf("9000")
-    }
+val bootJar: BootJar by tasks
+bootJar.apply {
+    enabled = false
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
@@ -41,7 +36,6 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-
 dependencies {
     compile(kotlin("stdlib"))
     compile("org.jetbrains.kotlin:kotlin-reflect")
@@ -49,8 +43,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude(module = "spring-boot-starter-validation")
     }
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-devtools")
 
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")

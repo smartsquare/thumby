@@ -1,4 +1,4 @@
-package com.sq.image.upload.runtime
+package com.sq.image.shared.runtime
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

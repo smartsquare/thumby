@@ -1,16 +1,18 @@
 package com.sq.image.generator.thumbnail
 
-import com.sq.image.generator.storage.GCloudStorageAdapter
+import com.sq.image.shared.storage.GCloudStorageAdapter
 import net.coobird.thumbnailator.Thumbnails
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.FileSystemUtils
 
 @Service
-class ThumbGenerator(val storageAdapter: GCloudStorageAdapter) {
+class ThumbGenerator(@Value("\${gcp.bucket-name}") val bucket: String,
+                     val storageAdapter: GCloudStorageAdapter) {
 
     fun createThumb(imageName: String, width: Int, height: Int) {
 
-        val image = storageAdapter.downloadImage(imageName)
+        val image = storageAdapter.downloadImage(bucket, imageName)
 
         val newImageName = getResultFileName(imageName, width, height)
 
@@ -19,7 +21,7 @@ class ThumbGenerator(val storageAdapter: GCloudStorageAdapter) {
                 .size(width, height)
                 .toFile(resizedFilePath.toFile())
 
-        storageAdapter.storeImage(imageName, resizedFilePath)
+        storageAdapter.storeImage(bucket, imageName, resizedFilePath)
 
         FileSystemUtils.deleteRecursively(image.parent)
     }
