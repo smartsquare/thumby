@@ -1,7 +1,5 @@
-package com.sq.image.service
+package com.sq.image.upload.thumbnail
 
-import com.sq.image.upload.thumbnail.ScaleType
-import com.sq.image.upload.thumbnail.Size
 import kotlinx.coroutines.experimental.launch
 import org.apache.logging.log4j.LogManager
 import org.springframework.beans.factory.annotation.Value

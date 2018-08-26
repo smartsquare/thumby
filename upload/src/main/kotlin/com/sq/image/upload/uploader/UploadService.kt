@@ -1,4 +1,4 @@
-package com.sq.image.service
+package com.sq.image.upload.uploader
 
 import com.sq.image.shared.storage.GCloudStorageAdapter
 import org.springframework.beans.factory.annotation.Value

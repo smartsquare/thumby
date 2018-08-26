@@ -4,6 +4,30 @@ The `/kubernetes` folder contains a pure k8s deployment while the `/istio` folde
 
 ## ISTIO
 
+### Install
+on gcloud cluster
+
+```bash
+curl -L https://git.io/getLatestIstio | sh -
+cd istio-1.0.1
+```
+
+Grant the cluster admin permissions to the current user. 
+You need these permissions to create the necessary role based access control (RBAC) rules for Istio:
+```bash
+kubectl create clusterrolebinding cluster-admin-binding \
+  --clusterrole=cluster-admin \
+  --user="$(gcloud config get-value core/account)"
+```
+
+```bash
+kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+kubectl apply -f install/kubernetes/istio-demo-auth.yaml
+
+kubectl label namespace default istio-injection=enabled
+
+```
+
 ### Tracing
 
 Enable port-forwarding for Jaeger

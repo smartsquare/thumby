@@ -1,8 +1,7 @@
-package com.sq.image.controller
+package com.sq.image.upload.uploader
 
-import com.sq.image.service.ThumbnailService
-import com.sq.image.service.UploadService
 import com.sq.image.upload.thumbnail.Size
+import com.sq.image.upload.thumbnail.ThumbnailService
 import org.apache.logging.log4j.LogManager
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
-
 
 @Controller
 class UploadController(val uploadService: UploadService,
