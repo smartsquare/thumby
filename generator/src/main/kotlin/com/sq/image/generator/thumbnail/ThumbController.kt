@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ThumbController(val generator: ThumbGenerator) {
+class ThumbController(private val generator: ThumbGenerator) {
 
     @PostMapping("img/{imageName}/thumb/{width}/{height}")
     fun thumb(@PathVariable("imageName") imageName:String,

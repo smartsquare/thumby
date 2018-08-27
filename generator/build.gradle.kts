@@ -58,8 +58,6 @@ dependencies {
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
 
-    compile("com.google.cloud:google-cloud-storage:${ext["google-cloud-storage-version"]}")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:${ext["mockk-version"]}")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

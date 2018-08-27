@@ -31,14 +31,19 @@ jib {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
 
+
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs = listOf("-Xjsr305=strict")
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -57,8 +62,6 @@ dependencies {
 
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
-
-    compile("com.google.cloud:google-cloud-storage:${ext["google-cloud-storage-version"]}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:${ext["mockk-version"]}")

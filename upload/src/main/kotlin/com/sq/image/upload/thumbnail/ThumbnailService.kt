@@ -8,11 +8,11 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
 @Service
-class ThumbnailService(@Value("\${thumbnail-service.hostname}") val thumbnailHost: String,
-                       @Value("\${thumbnail-service.port}") val thumbnailPort: String,
-                       val restClient: RestTemplate) {
+class ThumbnailService(@Value("\${thumbnail-service.hostname}") private val thumbnailHost: String,
+                       @Value("\${thumbnail-service.port}") private val thumbnailPort: String,
+                       private val restClient: RestTemplate) {
 
-    val log = LogManager.getLogger()
+    private val log = LogManager.getLogger()
 
     fun createThumbnails(originalFilename: String, vararg size: Size) {
         size.forEach {

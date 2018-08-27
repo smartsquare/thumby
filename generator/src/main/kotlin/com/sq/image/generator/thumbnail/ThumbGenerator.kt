@@ -1,35 +1,25 @@
 package com.sq.image.generator.thumbnail
 
 import com.sq.image.shared.storage.GCloudStorageAdapter
-import net.coobird.thumbnailator.Thumbnails
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.FileSystemUtils
 
 @Service
-class ThumbGenerator(@Value("\${gcp.bucket-name}") val bucket: String,
-                     val storageAdapter: GCloudStorageAdapter) {
+class ThumbGenerator(private val storageAdapter: GCloudStorageAdapter,
+                     private val thumbnails: Thumbnails,
+                     private val pathCreator: ThumbPathCreator) {
 
     fun createThumb(imageName: String, width: Int, height: Int) {
 
-        val image = storageAdapter.downloadImage(bucket, imageName)
+        val image = storageAdapter.downloadImage(imageName)
 
-        val newImageName = getResultFileName(imageName, width, height)
+        val resizedFilePath = pathCreator.createNewImagePath(image, imageName, width, height)
 
-        val resizedFilePath = image.parent.resolve(newImageName)
-        Thumbnails.of(image.toFile())
-                .size(width, height)
-                .toFile(resizedFilePath.toFile())
+        thumbnails.createThumbnail(image, width, height, resizedFilePath)
 
-        storageAdapter.storeImage(bucket, imageName, resizedFilePath)
+        storageAdapter.storeImage(imageName, resizedFilePath)
 
         FileSystemUtils.deleteRecursively(image.parent)
-    }
-
-    private fun getResultFileName(imageName: String, width: Int, height: Int): String {
-        val splitName = imageName.split(".")
-        val newImageName = "${splitName[0]}-${width}x${height}.${splitName[1]}"
-        return newImageName
     }
 
 }

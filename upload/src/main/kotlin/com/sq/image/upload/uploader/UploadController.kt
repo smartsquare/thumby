@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 class UploadController(val uploadService: UploadService,
                        val thumbnailService: ThumbnailService) {
 
-    val log = LogManager.getLogger()
+    private val log = LogManager.getLogger()
 
     @GetMapping("/")
     fun index() = "upload"

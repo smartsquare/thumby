@@ -11,8 +11,8 @@ class HeaderRequestInterceptorTest {
 
     private val requestInterceptor = HeaderRequestInterceptor()
 
-    private val request = mockk<HttpServletRequest>()
-    private val response = mockk<HttpServletResponse>()
+    private val request = mockk<HttpServletRequest>(relaxed = true)
+    private val response = mockk<HttpServletResponse>(relaxed = true)
 
     @Test
     fun `should forward all tracing header information`() {

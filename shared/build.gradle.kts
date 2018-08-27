@@ -4,7 +4,6 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
     base
     java
-    groovy
 
     kotlin("jvm") apply true
     id("org.jetbrains.kotlin.plugin.spring") apply true

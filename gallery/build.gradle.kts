@@ -13,7 +13,6 @@ plugins {
     id("com.google.cloud.tools.jib") apply true
 }
 
-
 jib {
     from {
         image = "openjdk:8-jre-alpine"
@@ -43,6 +42,8 @@ tasks.withType<KotlinCompile> {
 
 
 dependencies {
+    compile(project(":shared"))
+
     compile(kotlin("stdlib"))
     compile("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -54,8 +55,6 @@ dependencies {
 
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
-
-    compile("com.google.cloud:google-cloud-storage:${ext["google-cloud-storage-version"]}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:${ext["mockk-version"]}")

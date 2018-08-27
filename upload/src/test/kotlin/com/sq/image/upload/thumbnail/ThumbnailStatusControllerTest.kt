@@ -24,10 +24,10 @@ import java.nio.charset.StandardCharsets
 @ExtendWith(MockKExtension::class)
 internal class ThumbnailStatusControllerTest {
 
-    val restClient = mockk<RestTemplate>()
+    private val restClient = mockk<RestTemplate>()
 
-    val underTest = ThumbnailStatusController("server.host", "4711", restClient)
-    val mockMvc = MockMvcBuilders.standaloneSetup(underTest)
+    private val underTest = ThumbnailStatusController("server.host", "4711", restClient)
+    private val mockMvc = MockMvcBuilders.standaloneSetup(underTest)
             .setControllerAdvice(RestExceptionHandler())
             .build()
 
