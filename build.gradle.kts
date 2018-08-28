@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.FileInputStream
+import java.util.*
 
 plugins {
 
@@ -28,7 +30,13 @@ allprojects {
         useJUnitPlatform()
     }
 
+    val props = Properties()
+    props.load(FileInputStream(".env"))
+
     ext {
+        set("gcloud-project", props.getProperty("GCLOUD_PROJECT_ID"))
+
+        // version management
         set("coroutines-version", "0.25.0")
         set("google-cloud-storage-version", "1.41.0")
         set("kotlin-version", "1.2.61")

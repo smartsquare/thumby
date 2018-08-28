@@ -14,12 +14,15 @@ plugins {
 }
 
 jib {
+
+    val gcloudProject = rootProject.ext.get("gcloud-project")
+
     from {
         image = "openjdk:8-jre-alpine"
     }
 
     to {
-        image = "gcr.io/thumby-2049/upload-service"
+        image = "gcr.io/${gcloudProject}/upload-service"
     }
 
     container {
