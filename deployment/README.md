@@ -2,6 +2,11 @@
 
 The `/kubernetes` folder contains a pure k8s deployment while the `/istio` folder make use of some additional istio features.
 
+## Kubernetes
+on gcloud cluster
+
+Simple service, deployment and ingress definition to deploy on a GKE cluster
+
 ## ISTIO
 
 ### Install

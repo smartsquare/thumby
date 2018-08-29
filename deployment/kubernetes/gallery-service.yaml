@@ -29,6 +29,19 @@ spec:
     spec:
       containers:
       - name: gallery-service
+        readinessProbe:
+          httpGet:
+            path: /gallery/health
+            port: 9000
+          initialDelaySeconds: 35
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /gallery/health
+            port: 9000
+          initialDelaySeconds: 45
+          periodSeconds: 3
+          failureThreshold: 3
         image: gcr.io/thumby-2049/gallery-service:latest
         ports:
         - containerPort: 9000

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: thumby-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  backend:
+    serviceName: upload-service
+    servicePort: 8080
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: upload-service
+          servicePort: 8080
+      - path: /gallery
+        backend:
+          serviceName: gallery-service
+          servicePort: 9000
+      - path: /gallery/*
+        backend:
+          serviceName: gallery-service
+          servicePort: 9000
