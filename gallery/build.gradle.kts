@@ -22,7 +22,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/${gcloudProject}/gallery-service"
+        image = "gcr.io/$gcloudProject/gallery-service"
     }
 
     container {
@@ -42,7 +42,6 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
     }
 }
-
 
 dependencies {
     compile(project(":shared"))

@@ -24,9 +24,8 @@ class ThumbPathCreatorTest {
 
         val newImagePath = creator.createNewImagePath(tempFile, "image.jpg", width, height)
 
-        val expectedImageName = "image-${width}x${height}.jpg"
+        val expectedImageName = "image-${width}x$height.jpg"
 
         assertThat(newImagePath.toString()).endsWith(expectedImageName)
-
     }
 }

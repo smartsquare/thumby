@@ -46,5 +46,4 @@ class HeaderRequestInterceptorTest {
 
         verify(exactly = 0) { response.setHeader(any(), any()) }
     }
-
 }

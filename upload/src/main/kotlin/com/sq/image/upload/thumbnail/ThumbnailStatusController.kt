@@ -12,11 +12,13 @@ import java.net.URI
 import javax.servlet.http.HttpServletResponse
 
 @RestController
-class ThumbnailStatusController(@Value("\${thumbnail-service.hostname}") val thumbnailHost: String,
-                                @Value("\${thumbnail-service.port}") val thumbnailPort: String,
-                                val restClient: RestTemplate) {
+class ThumbnailStatusController(
+        @Value("\${thumbnail-service.hostname}") val thumbnailHost: String,
+        @Value("\${thumbnail-service.port}") val thumbnailPort: String,
+        val restClient: RestTemplate
+) {
 
-    val log = LogManager.getLogger()
+    private val log = LogManager.getLogger()
 
     @GetMapping("/generator-status")
     @ResponseBody
@@ -24,14 +26,15 @@ class ThumbnailStatusController(@Value("\${thumbnail-service.hostname}") val thu
 
         log.info("requesting generator service info.")
 
-        val uri: URI = UriComponentsBuilder.fromUriString("http://${thumbnailHost}:${thumbnailPort}/info").build().toUri()
+        val uri: URI = UriComponentsBuilder
+                .fromUriString("http://$thumbnailHost:$thumbnailPort/info")
+                .build()
+                .toUri()
 
-        //x-envoy-upstream-rq-timeout-ms and x-envoy-max-retries
+        // x-envoy-upstream-rq-timeout-ms and x-envoy-max-retries
         val responseEntity = restClient.getForEntity(uri, String::class.java)
         log.debug("Response from generator service: ${responseEntity.statusCodeValue} ${responseEntity.body} ${responseEntity.headers}")
 
         return responseEntity
     }
-
-
 }

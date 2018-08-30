@@ -79,7 +79,7 @@
                     {name: image.path},
                     function (imageData) {
                         $("#spinner").remove();
-                        $("#imageContainer").append("<div class='img-fluid img-thumbnail'><img alt='"+image.name+"' src='data:image/jpeg;base64," + imageData + "'></div>")
+                        $("#imageContainer").append("<div class='img-fluid img-thumbnail'><img alt='" + image.name + "' src='data:image/jpeg;base64," + imageData + "'></div>")
 
                     })
             })

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
-
 @Controller
 class GalleryController(private val galleryService: GalleryService) {
 
@@ -15,14 +14,9 @@ class GalleryController(private val galleryService: GalleryService) {
 
     @GetMapping("/image/list")
     @ResponseBody
-    fun list(): Map<String, List<ImageInfo>> {
-        return galleryService.listAllImagesFromBucket()
-    }
+    fun list(): Map<String, List<ImageInfo>> = galleryService.listAllImagesFromBucket()
 
     @GetMapping("/image", produces = [MediaType.IMAGE_JPEG_VALUE])
     @ResponseBody
-    fun loadImage(name: String): String {
-        return galleryService.retrieveImageByFilename(name)
-    }
-
+    fun loadImage(name: String): String = galleryService.retrieveImageByFilename(name)
 }

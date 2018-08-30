@@ -1,7 +1,10 @@
 package com.sq.image.shared.storage
 
-import com.google.cloud.storage.*
-import com.sq.image.shared.UploadException
+import com.google.cloud.storage.Blob
+import com.google.cloud.storage.BlobId
+import com.google.cloud.storage.BlobInfo
+import com.google.cloud.storage.Storage
+import com.google.cloud.storage.StorageOptions
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
@@ -9,8 +12,10 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 @Service
-class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") private val bucket: String,
-                           @Value("\${gcp.thumbnail-subfolder:thumbnails}") private val subfolder: String) {
+class GCloudStorageAdapter(
+        @Value("\${gcp.bucket-name}") private val bucket: String,
+        @Value("\${gcp.thumbnail-subfolder:thumbnails}") private val subfolder: String
+) {
 
     companion object {
         val storage = StorageOptions.getDefaultInstance().service
@@ -20,7 +25,7 @@ class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") private val bucket: Str
         val tempFiles = Files.createTempDirectory("thumbGenerator").resolve(fileName)
 
         val blob = storage.get(bucket, fileName)
-                ?: throw IllegalArgumentException("Bucket [${bucket}] not found on cloud storage.")
+                ?: throw IllegalArgumentException("Bucket [$bucket] not found on cloud storage.")
 
         blob.downloadTo(tempFiles)
 
@@ -48,10 +53,9 @@ class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") private val bucket: Str
         val bytes = Files.readAllBytes(resizedFilePath)
 
         storage.create(BlobInfo
-                .newBuilder(bucket, "${subfolder}/${imageName}/${resizedFilePath.fileName}")
+                .newBuilder(bucket, "$subfolder/$imageName/${resizedFilePath.fileName}")
                 .build(),
                 bytes)
-
     }
 
     fun listContentInBucket(): Map<String, List<ImageInfo>> {
@@ -60,7 +64,6 @@ class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") private val bucket: Str
         return bucketContent.iterateAll()
                 .map(this@GCloudStorageAdapter::toImageInfo)
                 .groupBy { it.name }
-
     }
 
     fun retrieveImageBytesByFilename(filename: String): String {
@@ -68,12 +71,10 @@ class GCloudStorageAdapter(@Value("\${gcp.bucket-name}") private val bucket: Str
         return Base64Utils.encodeToString(content)
     }
 
-
     private fun toImageInfo(imageBLob: Blob): ImageInfo {
         val path = imageBLob.name
         val fileName = path.split("/")[1]
 
         return ImageInfo(fileName, path)
     }
-
 }

@@ -47,7 +47,6 @@ class UploadControllerTest {
                 .andExpect(flash().attributeExists<String>("message"))
     }
 
-
     @Test
     fun `should handle exceptions during upload process`() {
         val errorMessage = "Error during upload"

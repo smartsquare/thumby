@@ -22,7 +22,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/${gcloudProject}/upload-service"
+        image = "gcr.io/$gcloudProject/upload-service"
     }
 
     container {
@@ -34,8 +34,6 @@ jib {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-
-
 }
 
 tasks.withType<KotlinCompile> {
@@ -71,6 +69,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.hamcrest:java-hamcrest:${ext["hamcrest-version"]}")
     testImplementation("com.jayway.jsonpath:json-path:${ext["json-path-version"]}")
+    testImplementation("org.amshove.kluent:kluent:${ext["kluent-version"]}")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

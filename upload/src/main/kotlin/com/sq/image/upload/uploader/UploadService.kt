@@ -4,7 +4,6 @@ import com.sq.image.shared.storage.GCloudStorageAdapter
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
-
 @Service
 class UploadService(private val storageAdapter: GCloudStorageAdapter) {
 
@@ -16,5 +15,4 @@ class UploadService(private val storageAdapter: GCloudStorageAdapter) {
 
         return storageAdapter.upload(fileName, file.bytes)
     }
-
 }

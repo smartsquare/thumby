@@ -12,5 +12,4 @@ class Thumbnails {
                 .size(width, height)
                 .toFile(resizedFilePath.toFile())
     }
-
 }

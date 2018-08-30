@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest
 @ControllerAdvice("com.sq.image.upload.thumbnail")
 class RestExceptionHandler {
 
-    val log = LogManager.getLogger()
-
+    private val log = LogManager.getLogger()
 
     @ExceptionHandler(Exception::class)
     fun handleUnkownError(req: HttpServletRequest, e: Exception): ResponseEntity<HttpErrorInfo> {
@@ -28,7 +27,6 @@ class RestExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .headers(headers)
                 .body(HttpErrorInfo(req.requestURL, e.javaClass.simpleName, e.message!!))
-
     }
 
     @ExceptionHandler(RestClientResponseException::class)
@@ -39,14 +37,17 @@ class RestExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(HttpRestErrorInfo(req.requestURL, e.javaClass.simpleName, e.message!!, e.rawStatusCode))
     }
-
 }
 
-data class HttpRestErrorInfo(val url: StringBuffer,
-                             val downstreamExceptionName: String,
-                             val downstreamErrorMessage: String,
-                             val downstreamErrorCode: Int)
+data class HttpRestErrorInfo(
+        val url: StringBuffer,
+        val downstreamExceptionName: String,
+        val downstreamErrorMessage: String,
+        val downstreamErrorCode: Int
+)
 
-data class HttpErrorInfo(val url: StringBuffer,
-                         val exceptionName: String,
-                         val errorMessage: String)
+data class HttpErrorInfo(
+        val url: StringBuffer,
+        val exceptionName: String,
+        val errorMessage: String
+)

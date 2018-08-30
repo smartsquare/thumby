@@ -36,6 +36,5 @@ internal class ThumbGeneratorTest {
 
         verify { thumbnails.createThumbnail(any(), eq(width), eq(height), any()) }
         verify { cloudAdapter.storeImage(any(), any()) }
-
     }
 }

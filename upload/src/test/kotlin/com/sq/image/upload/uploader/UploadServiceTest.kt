@@ -4,7 +4,7 @@ import com.sq.image.shared.storage.GCloudStorageAdapter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.mock.web.MockMultipartFile
@@ -27,7 +27,8 @@ internal class UploadServiceTest {
 
         val imageLink = service.upload(file)
 
-        assertThat(imageLink).isEqualTo(returnImageLink)
+        imageLink shouldEqual returnImageLink
+
         verify { cloudAdapter.upload(eq(imageFileName), eq(fileContent)) }
     }
 

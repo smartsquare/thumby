@@ -17,12 +17,11 @@ class ThumbControllerTest {
     private val underTest = ThumbController(thumbGenerator)
     private val mockMvc = MockMvcBuilders.standaloneSetup(underTest).build()
 
-
     @Test
     fun `should call thumb service on request`() {
         val width = "120"
         val height = "240"
-        val uri = URI("http://local:host/img/image.jpg/thumb/${width}/${height}")
+        val uri = URI("http://local:host/img/image.jpg/thumb/$width/$height")
 
         mockMvc.perform(post(uri)).andExpect(status().isOk)
 

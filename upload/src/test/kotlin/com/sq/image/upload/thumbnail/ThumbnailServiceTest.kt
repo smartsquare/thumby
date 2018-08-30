@@ -36,6 +36,6 @@ internal class ThumbnailServiceTest {
     }
 
     private fun getUri(size: Size): URI {
-        return URI("http://${host}:${port}/img/${imageName}/${ScaleType.THUMBNAIL.urlPart}/${size.width}/${size.height}")
+        return URI("http://$host:$port/img/$imageName/${ScaleType.THUMBNAIL.urlPart}/${size.width}/${size.height}")
     }
 }

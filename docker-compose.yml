@@ -10,26 +10,26 @@ services:
     image: gcr.io/${GCLOUD_PROJECT_ID}/gallery-service
     #build: gallery/.
     ports:
-     - "9000:9000"
+    - "9000:9000"
     command:
       ["--gcp.bucket-name=${GCLOUD_STORAGE_BUCKET}"]
     volumes:
-     - "~/.config/gcloud:/root/.config/gcloud"
+    - "~/.config/gcloud:/root/.config/gcloud"
   upload:
     image: gcr.io/${GCLOUD_PROJECT_ID}/upload-service
     #build: upload/.
     ports:
-     - "8080:8080"
+    - "8080:8080"
     links:
-     - "generator:generator"
+    - "generator:generator"
     command:
       ["--thumbnail-service.hostname=generator", "--thumbnail-service.port=8888", "--gcp.bucket-name=${GCLOUD_STORAGE_BUCKET}"]
     volumes:
-     - "~/.config/gcloud:/root/.config/gcloud"
+    - "~/.config/gcloud:/root/.config/gcloud"
   generator:
     image: gcr.io/${GCLOUD_PROJECT_ID}/generator-service
     #build: generator/.
     command:
       ["--gcp.bucket-name=${GCLOUD_STORAGE_BUCKET}"]
     volumes:
-     - "~/.config/gcloud:/root/.config/gcloud"
+    - "~/.config/gcloud:/root/.config/gcloud"

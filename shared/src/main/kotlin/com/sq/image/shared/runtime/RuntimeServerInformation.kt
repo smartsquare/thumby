@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Service
 import java.net.InetAddress
 
-
 @Service
 class RuntimeServerInformation : ApplicationListener<ServletWebServerInitializedEvent> {
 
@@ -23,5 +22,4 @@ class RuntimeServerInformation : ApplicationListener<ServletWebServerInitialized
     override fun onApplicationEvent(event: ServletWebServerInitializedEvent) {
         port = event.webServer.port
     }
-
 }

@@ -22,7 +22,7 @@ jib {
     }
 
     to {
-        image = "gcr.io/${gcloudProject}/generator-service"
+        image = "gcr.io/$gcloudProject/generator-service"
     }
 
     container {

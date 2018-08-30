@@ -13,7 +13,6 @@ class ThumbPathCreator {
 
     private fun getResultFileName(imageName: String, width: Int, height: Int): String {
         val splitName = imageName.split(".")
-        return "${splitName[0]}-${width}x${height}.${splitName[1]}"
+        return "${splitName[0]}-${width}x$height.${splitName[1]}"
     }
-
 }

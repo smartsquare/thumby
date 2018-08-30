@@ -7,7 +7,5 @@ import org.springframework.web.client.RestTemplate
 @Configuration
 class RestClientConfig {
     @Bean
-    fun restTemplate(): RestTemplate {
-        return RestTemplate()
-    }
+    fun restTemplate(): RestTemplate = RestTemplate()
 }

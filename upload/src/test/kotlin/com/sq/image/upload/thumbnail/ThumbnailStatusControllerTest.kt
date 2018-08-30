@@ -3,7 +3,9 @@ package com.sq.image.upload.thumbnail
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.emptyString
+import org.hamcrest.Matchers.not
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,14 +13,16 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestClientResponseException
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 import java.nio.charset.StandardCharsets
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(MockKExtension::class)
@@ -40,7 +44,6 @@ internal class ThumbnailStatusControllerTest {
         response.andExpect(status().isInternalServerError)
                 .andExpect(header().exists("error"))
                 .andExpect(content().string(`is`(not(emptyString()))))
-
     }
 
     @Test
@@ -49,7 +52,6 @@ internal class ThumbnailStatusControllerTest {
         val responseException = RestClientResponseException("message", 404, "statusText", HttpHeaders(), "".toByteArray(), StandardCharsets.UTF_8)
 
         every { restClient.getForEntity(any<URI>(), any<Class<String>>()) } throws responseException
-
 
         val response = mockMvc.perform(get("/generator-status"))
                 .andDo(MockMvcResultHandlers.print())

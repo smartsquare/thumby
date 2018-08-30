@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service
 import org.springframework.util.FileSystemUtils
 
 @Service
-class ThumbGenerator(private val storageAdapter: GCloudStorageAdapter,
-                     private val thumbnails: Thumbnails,
-                     private val pathCreator: ThumbPathCreator) {
+class ThumbGenerator(
+        private val storageAdapter: GCloudStorageAdapter,
+        private val thumbnails: Thumbnails,
+        private val pathCreator: ThumbPathCreator
+) {
 
     fun createThumb(imageName: String, width: Int, height: Int) {
 
@@ -21,5 +23,4 @@ class ThumbGenerator(private val storageAdapter: GCloudStorageAdapter,
 
         FileSystemUtils.deleteRecursively(image.parent)
     }
-
 }

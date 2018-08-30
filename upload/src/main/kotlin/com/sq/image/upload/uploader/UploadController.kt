@@ -11,8 +11,10 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
-class UploadController(val uploadService: UploadService,
-                       val thumbnailService: ThumbnailService) {
+class UploadController(
+        val uploadService: UploadService,
+        val thumbnailService: ThumbnailService
+) {
 
     private val log = LogManager.getLogger()
 
@@ -20,8 +22,10 @@ class UploadController(val uploadService: UploadService,
     fun index() = "upload"
 
     @PostMapping("/upload")
-    fun handleFileUpload(@RequestParam("file") file: MultipartFile,
-                         redirectAttributes: RedirectAttributes): String {
+    fun handleFileUpload(
+            @RequestParam("file") file: MultipartFile,
+            redirectAttributes: RedirectAttributes
+    ): String {
         try {
             val publicLink = uploadService.upload(file)
 
@@ -33,14 +37,12 @@ class UploadController(val uploadService: UploadService,
 
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '${file.originalFilename}' to $publicLink !")
-
         } catch (e: Exception) {
             log.error(e.message, e)
             redirectAttributes.addFlashAttribute("message",
-                    "Error: ${e} !")
+                    "Error: $e !")
         }
 
         return "redirect:/"
     }
-
 }
