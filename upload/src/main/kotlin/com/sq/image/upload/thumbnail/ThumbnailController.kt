@@ -26,7 +26,7 @@ class ThumbnailController(val thumbnailService: ThumbnailService) {
             throw RuntimeException("Mysterious Exception")
         }
 
-        thumbnailService.createThumbnails(param.fileName, Size(param.size, param.size))
+        thumbnailService.createThumbnail(param.fileName, ScaleType.THUMBNAIL, Size(param.size, param.size))
 
         return "success"
     }

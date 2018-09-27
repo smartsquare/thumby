@@ -1,6 +1,5 @@
 package com.sq.image.upload.thumbnail
 
-import kotlinx.coroutines.experimental.launch
 import org.apache.logging.log4j.LogManager
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -16,15 +15,7 @@ class ThumbnailService(
 
     private val log = LogManager.getLogger()
 
-    fun createThumbnails(originalFilename: String, vararg size: Size) {
-        size.forEach {
-            launch {
-                createThumbnail(originalFilename, ScaleType.THUMBNAIL, it)
-            }
-        }
-    }
-
-    private suspend fun createThumbnail(filename: String, type: ScaleType, size: Size) {
+    fun createThumbnail(filename: String, type: ScaleType, size: Size) {
 
         val url = UriComponentsBuilder.fromHttpUrl("http://{host}:{port}/img/{filename}/{type}/{width}/{height}")
                 .buildAndExpand(

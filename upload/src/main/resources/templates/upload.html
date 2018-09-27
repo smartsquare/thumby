@@ -14,11 +14,17 @@
 
 <body class="text-center">
 
-
 <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+
     <header class="masthead mb-auto">
         <div class="inner">
             <h3 class="masthead-brand">Image-Upload-Service</h3>
+        </div>
+        <div class="inner">
+            <a href="/gallery">
+                <p class="header-sub-page"> | Gallery-Service <i class="fa fa-external-link-alt"></i></p>
+            </a>
         </div>
     </header>
 
@@ -233,9 +239,8 @@
                         app.isUploadDone = true
                     })
                     .catch(function (err) {
-                        console.log(err);
                         app.isError = true;
-                        app.resultMessage = "Fehler: " + err
+                        app.resultMessage = err.message
                     })
                     .then(function () {
                         app.disableUploadButton = false
