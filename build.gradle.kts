@@ -3,7 +3,7 @@ import java.util.Properties
 
 plugins {
 
-    val kotlinVersion = "1.2.61"
+    val kotlinVersion = "1.2.70"
 
     base
     kotlin("jvm") version kotlinVersion apply false
@@ -38,20 +38,20 @@ allprojects {
         set("gcloud-project", props.getProperty("GCLOUD_PROJECT_ID"))
 
         // version management
-        set("coroutines-version", "0.25.0")
-        set("google-cloud-storage-version", "1.41.0")
-        set("kotlin-version", "1.2.61")
+        set("coroutines-version", "0.26.1")
+        set("google-cloud-storage-version", "1.45.0")
+        set("kotlin-version", "1.2.70")
         set("hamcrest-version", "2.0.0.0")
         set("json-path-version", "2.4.0")
-        set("mockk-version", "1.8.6")
+        set("mockk-version", "1.8.7")
         set("kluent-version", "1.40")
-        set("detekt-version", "1.0.0.RC8")
+        set("detekt-version", "1.0.0-gradle-rework-beta3")
     }
 }
 
 buildscript {
 
-    val kotlinVersion = "1.2.61"
+    val kotlinVersion = "1.2.70"
 
     repositories {
         jcenter()

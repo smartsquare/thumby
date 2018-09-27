@@ -7,7 +7,7 @@ spring:
       max-request-size: 10MB
 
 gcp:
-  bucket-name: thumbnail-service
+  bucket-name: thumby_bucket
 
 thumbnail-service:
   hostname: image-thumb-generator-service.default

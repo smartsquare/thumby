@@ -122,3 +122,52 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
+
+/* spinner */
+.loader {
+    border: 3px solid #38932e; /* Light grey */
+    border-top: 3px solid #212529; /* dark grey */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.success {
+    color: #38932e;
+}
+
+.fail {
+    color: crimson;
+}
+
+.opac-box {
+    padding: .75rem 1.25rem;
+    background-color: rgba(185, 185, 185, 0.7);
+    border-radius: .25rem;
+    border-color: #212529;
+    border-bottom-width: 1px;
+    left: 0;
+    width: 100%;
+}
+
+.checkboxes {
+    margin-bottom: 10px;
+}
+
+.checkboxes .table th {
+    padding: 0px;
+}
+
+.redo:hover {
+    cursor: pointer;
+}

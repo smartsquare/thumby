@@ -5,15 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/font-awesome/5.3.1/css/all.min.css">
 
     <link href="../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.css}">
+
 </head>
 
 <body class="text-center">
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+<div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
         <div class="inner">
             <h3 class="masthead-brand">Image-Upload-Service</h3>
@@ -21,20 +23,149 @@
     </header>
 
     <main role="main" class="inner cover">
-        <div th:if="${message}" class="alert alert-secondary" role="alert" th:text="${message}"/>
 
         <div>
-            <form method="POST" enctype="multipart/form-data" action="upload">
+            <div id="message" v-if="resultMessage" class="alert alert-success"
+                 v-bind:class="{ 'alert-success': isSuccess, 'alert-danger': isError }">{{resultMessage}}
+            </div>
+
+            <div id="upload" v-if="!isUploadDone">
 
                 <div class="custom-file form-group">
-                    <input type="file" class="custom-file-input" id="customFile" th:name="file">
-                    <label class="custom-file-label" for="customFile">Choose image</label>
+                    <input type="file" class="custom-file-input" id="customFile" name="file"
+                           @change="updateInput($event)" ref="fileupload">
+                    <label class="custom-file-label" for="customFile">{{ fileLabelText }}</label>
                 </div>
 
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Upload</button>
+                    <button type="submit" class="btn btn-default" id="upload-btn" @click="fileUpload()"
+                            :disabled=disableUploadButton>Upload
+                        <div class="d-inline-block">
+                            <div class="loader" id="spinner-holder" v-if="disableUploadButton"></div>
+                        </div>
+                    </button>
                 </div>
-            </form>
+            </div>
+
+            <div id="resize" class="opac-box" v-if="isUploadDone">
+
+                <div class="checkboxes row">
+
+                    <div class="col-4"></div>
+                    <div class="col-4">
+
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th style="width: 17px"></th>
+                                <th style="width: 22px"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <th><input type="checkbox" id="s60" value="60" v-model="sizes"></th>
+                                <th><label for="s60">60x60</label></th>
+                                <th>
+                                    <div v-if="success.includes('60')">
+                                        <i class="fa fa-check success"></i>
+                                    </div>
+                                    <div v-if="fail.includes('60')"><i class="fa fa-times fail"></i>
+                                    </div>
+                                    <div class="loader" v-if="processing.includes('60')"></div>
+                                </th>
+                                <th>
+                                    <div v-if="fail.includes('60')" style="padding-left: 5px;"><i
+                                            class="fa fa-sync redo"
+                                            @click="redoThumb(60)"></i>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th><input type="checkbox" id="s120" value="120" v-model="sizes"></th>
+                                <th><label for="s120">120x120</label></th>
+                                <th>
+                                    <div v-if="success.includes('120')">
+                                        <i class="fa fa-check success"></i>
+                                    </div>
+                                    <div v-if="fail.includes('120')"><i class="fa fa-times fail"></i>
+                                    </div>
+                                    <div class="loader" v-if="processing.includes('120')"></div>
+                                </th>
+                                <th>
+                                    <div v-if="fail.includes('120')" style="padding-left: 5px;"><i
+                                            class="fa fa-sync redo"
+                                            @click="redoThumb(120)"></i>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th><input type="checkbox" id="s240" value="240" v-model="sizes"></th>
+                                <th><label for="s240">240x240</label></th>
+                                <th>
+                                    <div v-if="success.includes('240')">
+                                        <i class="fa fa-check success"></i>
+                                    </div>
+                                    <div v-if="fail.includes('240')"><i class="fa fa-times fail"></i>
+                                    </div>
+
+                                    <div class="loader" v-if="processing.includes('240')"></div>
+                                </th>
+                                <th>
+                                    <div v-if="fail.includes('240')" style="padding-left: 5px;"><i
+                                            class="fa fa-sync redo"
+                                            @click="redoThumb(240)"></i>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th><input type="checkbox" id="s480" value="480" v-model="sizes"></th>
+                                <th><label for="s480">480x480</label></th>
+                                <th>
+                                    <div v-if="success.includes('480')">
+                                        <i class="fa fa-check success"></i>
+                                    </div>
+                                    <div v-if="fail.includes('480')" style="padding-left: 5px;"><i
+                                            class="fa fa-times fail"></i>
+                                    </div>
+
+                                    <div class="loader" v-if="processing.includes('480')"></div>
+                                </th>
+                                <th>
+                                    <div v-if="fail.includes('480')" style="padding-left: 5px;"><i
+                                            class="fa fa-sync redo"
+                                            @click="redoThumb(480)"></i>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4"></div>
+
+                </div>
+
+                <div class="buttons">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" id="thumb-btn" @click="createThumbs()"
+                                :disabled=!isThumbnailing>
+                            Create Thumbs
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" id="reset-btn" @click="resetThumb()">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -51,32 +182,142 @@
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+<script src="/webjars/vue/2.5.17/dist/vue.min.js"></script>
+<script src="/webjars/axios/0.19.0-beta.1/dist/axios.min.js"></script>
 
 <script>
-    $(function () {
-        $('.custom-file-input').on('change', function () {
-            let fileName = $(this).val().split('\\').pop();
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        });
 
-        $.getJSON("/info", function (json) {
-            console.log(json);
-            $('#info').text(`${json.localHostAddress}-${json.localHostName}-${json.port}`)
-        });
 
-        $.get("/generator-status", function (response) {
-            console.log(response)
-        }).fail(function (response) {
-            console.log(response)
-        })
+    var app = new Vue({
+
+        el: "#app",
+        data: {
+            resultMessage: null,
+            fileLabelText: "Choose image",
+            disableUploadButton: false,
+            isSuccess: false,
+            isError: false,
+            sizes: [],
+            uploadedFileName: null,
+            processing: [],
+            success: [],
+            fail: [],
+            isUploadDone: false,
+            isThumbnailing: true
+        },
+
+        methods: {
+            fileUpload: function (event) {
+                app.disableUploadButton = true;
+                app.isError = false;
+                app.isSuccess = false;
+                app.resultMessage = null;
+                app.uploadedFileName = null;
+                app.isUploadDone = false;
+                app.processing = [];
+
+                var formData = new FormData();
+                var imagefile = document.querySelector('#customFile');
+                formData.append("file", imagefile.files[0]);
+
+                axios.post('/upload', formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(function (res) {
+                        app.isSuccess = true;
+                        app.resultMessage = "Image successfully uploaded, choose Thumbsize.";
+                        app.uploadedFileName = res.data;
+                        app.isUploadDone = true
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                        app.isError = true;
+                        app.resultMessage = "Fehler: " + err
+                    })
+                    .then(function () {
+                        app.disableUploadButton = false
+                    });
+            },
+
+            updateInput: function (event) {
+                app.fileLabelText = event.target.files[0].name.split('\\').pop()
+            },
+            resetThumb: function () {
+                app.disableUploadButton = false;
+                app.fileLabelText = 'Choose image';
+                app.isError = false;
+                app.isSuccess = false;
+                app.resultMessage = null;
+                app.uploadedFileName = null;
+                app.isUploadDone = false;
+                app.success = [];
+                app.fail = [];
+                app.sizes = [];
+                app.processing = [];
+                app.isThumbnailing = true
+            },
+            createThumbs: function () {
+                app.success = [];
+                app.fail = [];
+
+                if (app.sizes == 0 || app.uploadedFileName == null) {
+                    console.log("Selected sizes: " + app.sizes + " file name: " + app.uploadedFileName);
+                    return
+                }
+
+                app.processing = app.sizes.slice();
+
+                for (const size of app.sizes) {
+                    app.createThumb(size)
+                }
+
+                app.isThumbnailing = false
+            },
+            redoThumb: function (size) {
+                if (!app.processing.includes(size.toString())) {
+                    app.processing.push(size.toString())
+                }
+
+                if (app.fail.includes(size.toString())) {
+                    app.fail = removeElementFromArray(size, app.fail);
+                }
+
+                app.createThumb(size)
+            },
+            createThumb: function (size) {
+                axios.post('/thumbnail', {
+                    fileName: app.uploadedFileName,
+                    size: size
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (res) {
+                    app.success.push(size)
+                }).catch(function (err) {
+                    app.fail.push(size.toString())
+                }).then(function () {
+                    if (app.processing.length <= 1) {
+                        app.processing = []
+                    } else {
+                        app.processing = removeElementFromArray(size, app.processing);
+                    }
+                });
+            }
+        }
+
+
     });
+
+    function removeElementFromArray(element, arr) {
+        return arr.filter(function (item) {
+            return item !== element.toString()
+        })
+    }
+
 </script>
 
 </body>
