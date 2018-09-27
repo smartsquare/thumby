@@ -28,11 +28,9 @@ internal class ThumbnailServiceTest {
 
     @Test
     fun `should call rest client for each desired thumbnail size`() {
-        service.createThumbnails(imageName, Size(120, 120), Size(240, 240), Size(480, 480))
+        service.createThumbnail(imageName, ScaleType.THUMBNAIL, Size(120, 120))
 
         verify(exactly = 1) { restClient.postForLocation(eq(getUri(Size(120, 120))), isNull()) }
-        verify(exactly = 1) { restClient.postForLocation(eq(getUri(Size(240, 240))), isNull()) }
-        verify(exactly = 1) { restClient.postForLocation(eq(getUri(Size(480, 480))), isNull()) }
     }
 
     private fun getUri(size: Size): URI {

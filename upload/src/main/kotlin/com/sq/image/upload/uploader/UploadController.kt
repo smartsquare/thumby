@@ -34,9 +34,10 @@ class UploadController(
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
+    @ResponseBody
     fun handleError(req: HttpServletRequest, ex: Exception): String {
         log.error("Request: " + req.requestURL + " raised " + ex)
-        return "upload fail"
+        return "upload failed"
     }
 
 }

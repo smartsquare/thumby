@@ -1,16 +1,15 @@
 package com.sq.image.upload.uploader
 
-import com.sq.image.upload.thumbnail.ThumbnailService
 import io.mockk.every
 import io.mockk.mockk
-import org.hamcrest.CoreMatchers.containsString
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.mock.web.MockMultipartFile
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
@@ -19,9 +18,7 @@ class UploadControllerTest {
 
     private val uploadService = mockk<UploadService>()
 
-    private val thumbnailService = mockk<ThumbnailService>()
-
-    private val underTest = UploadController(uploadService, thumbnailService)
+    private val underTest = UploadController(uploadService)
     private val mockMvc = MockMvcBuilders.standaloneSetup(underTest).build()
 
     private lateinit var file: MockMultipartFile
@@ -39,12 +36,11 @@ class UploadControllerTest {
     @Test
     fun `should upload an image and trigger thumbnail generator`() {
         every { uploadService.upload(any()) } returns "fileLink"
-        every { thumbnailService.createThumbnails(any(), any(), any(), any(), any()) } returns Unit
 
         val result = mockMvc.perform(MockMvcRequestBuilders.multipart("/upload").file(file))
 
-        result.andExpect(status().is3xxRedirection)
-                .andExpect(flash().attributeExists<String>("message"))
+        result.andExpect(status().is2xxSuccessful)
+                .andExpect(content().string(file.originalFilename))
     }
 
     @Test
@@ -53,9 +49,9 @@ class UploadControllerTest {
         every { uploadService.upload(any()) } throws Exception(errorMessage)
 
         val result = mockMvc.perform(MockMvcRequestBuilders.multipart("/upload").file(file))
+                .andDo(print())
 
-        result.andExpect(status().is3xxRedirection)
-                .andExpect(flash().attributeExists<String>("message"))
-                .andExpect(flash().attribute("message", containsString(errorMessage)))
+        result.andExpect(status().is5xxServerError)
+                .andExpect(content().string("upload failed"))
     }
 }
