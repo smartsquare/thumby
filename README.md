@@ -4,10 +4,19 @@
 
 ## Build
 
-### build and push docker images to local repository
+### build local
+
+build and push docker images to local repository
 
 `$ ./gradlew clean build jibDockerBuild`
 
-### build and push docker images to remote repository 
+### build remote 
+
+build and push docker images to remote repository
 
 `$ ./gradlew clean build jibDockerBuild`
+
+
+### run local
+
+`$ docker-compose up`

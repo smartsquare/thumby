@@ -8,10 +8,10 @@ plugins {
     base
     kotlin("jvm") version kotlinVersion apply false
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion apply false
-    id("org.springframework.boot") version "2.0.4.RELEASE" apply false
+    id("org.springframework.boot") version "2.0.5.RELEASE" apply false
     id("io.spring.dependency-management") version "1.0.6.RELEASE" apply false
 
-    id("com.google.cloud.tools.jib") version "0.9.8" apply false
+    id("com.google.cloud.tools.jib") version "0.9.11" apply false
 
     id("io.gitlab.arturbosch.detekt") version "1.0.0.RC8" apply true
 }

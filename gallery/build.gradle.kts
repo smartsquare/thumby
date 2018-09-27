@@ -17,13 +17,8 @@ jib {
 
     val gcloudProject = rootProject.ext.get("gcloud-project")
 
-    from {
-        image = "openjdk:8-jre-alpine"
-    }
-
-    to {
-        image = "gcr.io/$gcloudProject/gallery-service"
-    }
+    from.image = "openjdk:8-jre-alpine"
+    to.image = "gcr.io/$gcloudProject/gallery-service"
 
     container {
         jvmFlags = listOf("-Djava.security.egd=file:/dev/./urandom")
