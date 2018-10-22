@@ -17,6 +17,6 @@ fun main(args: Array<String>) {
     val bucket = env.getProperty("gcp.bucket-name")
 
     log.info("\n----------------------------------------------------------\n" +
-            "Bucket Name: '$bucket' \n" +
+            "Bucket Name: '$bucket'" +
             "\n----------------------------------------------------------")
 }

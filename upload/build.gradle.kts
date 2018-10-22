@@ -59,10 +59,10 @@ dependencies {
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
 
-    compile("org.webjars.npm:vue:2.5.17")
-    compile("org.webjars.npm:bootstrap-vue:2.0.0-rc.11")
-    compile("org.webjars.npm:axios:0.19.0-beta.1")
-    compile("org.webjars:font-awesome:5.3.1")
+    compile("org.webjars.npm:vue:${ext["webjar-vue-version"]}")
+    compile("org.webjars.npm:bootstrap-vue:${ext["webjar-vue-bootstrap-version"]}")
+    compile("org.webjars.npm:axios:${ext["webjar-axios-version"]}")
+    compile("org.webjars:font-awesome:${ext["webjar-font-awesome-version"]}")
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

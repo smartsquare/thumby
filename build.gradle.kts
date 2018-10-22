@@ -46,6 +46,11 @@ allprojects {
         set("mockk-version", "1.8.7")
         set("kluent-version", "1.40")
         set("detekt-version", "1.0.0-gradle-rework-beta3")
+
+        set("webjar-vue-version", "2.5.17")
+        set("webjar-vue-bootstrap-version", "2.0.0-rc.11")
+        set("webjar-axios-version", "0.19.0-beta.1")
+        set("webjar-font-awesome-version", "5.3.1")
     }
 }
 

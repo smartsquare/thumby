@@ -20,3 +20,7 @@ build and push docker images to remote repository
 ### run local
 
 `$ docker-compose up`
+
+## Configuration
+
+The `.env` file contains the gcloud repository and bucket name and is used by the gradle build and docker.

@@ -53,6 +53,11 @@ dependencies {
     compile("org.apache.logging.log4j:log4j-api")
     compile("org.apache.logging.log4j:log4j-core")
 
+    compile("org.webjars.npm:vue:${ext["webjar-vue-version"]}")
+    compile("org.webjars.npm:bootstrap-vue:${ext["webjar-vue-bootstrap-version"]}")
+    compile("org.webjars.npm:axios:${ext["webjar-axios-version"]}")
+    compile("org.webjars:font-awesome:${ext["webjar-font-awesome-version"]}")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:${ext["mockk-version"]}")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

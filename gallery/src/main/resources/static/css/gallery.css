@@ -1,11 +1,90 @@
+html,
 body {
-    padding-top: 54px;
+    height: 100%;
+    background-color: transparent;
+    background: url(../image/thumby-bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.cover-container {
+    max-width: 42em;
+}
+
+/*
+ * Header
+ */
+.masthead {
+    margin-bottom: 2rem;
+}
+
+.masthead-brand {
+    margin-bottom: 0;
+}
+
+.nav-masthead .nav-link {
+    padding: .25rem 0;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+    margin-left: 1rem;
+}
+
+.nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
 }
 
 @media (min-width: 992px) {
     body {
         padding-top: 56px;
     }
+}
+
+@media (min-width: 48em) {
+
+    .nav-masthead {
+        float: right;
+    }
+}
+
+/*
+ * Cover
+ */
+.cover {
+    /* padding: 0 1.5rem; */
+}
+
+.cover .btn-lg {
+    padding: .75rem 1.25rem;
+    font-weight: 700;
+}
+
+/*
+ * Footer
+ */
+.mastfoot {
+    color: rgba(255, 255, 255, .5);
 }
 
 /* spinner */
@@ -27,8 +106,30 @@ body {
     }
 }
 
+.opac-box {
+    padding: .75rem 1.25rem;
+    background-color: rgba(185, 185, 185, 0.7);
+    border-radius: .25rem;
+    border-color: #212529;
+    border-bottom-width: 1px;
+    left: 0;
+    width: 100%;
+}
+
+.header-sub-page {
+    padding-top: 8px;
+    font-size: 16px;
+    color: #212529;
+}
+
+.masthead a:hover {
+    color: #212529;
+    text-decoration: none;
+}
+
+/**
+ Thumbnails
+ */
 .img-thumbnail {
-
     margin: 0.25em;
-
 }
