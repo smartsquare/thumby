@@ -26,6 +26,23 @@ jib {
     }
 }
 
+tasks {
+
+    val serviceName = "upload-service"
+    val gcloudProject = rootProject.ext.get("gcloud-project")
+    val dockerHubTag = "smartsquare/thumby-$serviceName:latest"
+
+    val dockerTag by registering(Exec::class) {
+        commandLine("docker", "tag", "gcr.io/$gcloudProject/$serviceName:latest", dockerHubTag)
+    }
+
+    val dockerHubPush by registering(Exec::class) {
+        dependsOn(dockerTag)
+        commandLine("docker", "push", dockerHubTag)
+    }
+}
+
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -41,6 +58,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 dependencies {
     compile(project(":shared"))

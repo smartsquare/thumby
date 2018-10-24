@@ -76,3 +76,4 @@ dependencies {
         archives(it)
     }
 }
+
