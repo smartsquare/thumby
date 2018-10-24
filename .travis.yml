@@ -3,7 +3,7 @@ jdk:
 - openjdk8
 
 before_script:
-- docker login -e $DOCKER_HUB_MAIL -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+- docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
 
 script:
 - ./gradlew clean build jibDockerBuild dockerHubPush
