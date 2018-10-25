@@ -1,0 +1,114 @@
+# Google Cloud & Kubernetes Cheat Sheet
+
+## Google Cloud
+
+### GCloud Komponenten verwalten
+```bash
+gcloud components list                  # Liste aller installierten
+                                        # und verfügbaren Komponentent
+gcloud components update                # Aktualisiert alle installierten Komponenten
+gcloud components install $componentId  # Installiert eine Komponenten
+gcloud components remove $componentId   # Deinstalliert eine Komponente
+```
+
+### GCloud Projekte
+```bash
+gcloud organizations list                # Liste aller vorhandenen Organisationenen 
+gcloud projects list                     # Liste aller Projekte
+gcloud projects delete $projectId        # Löscht das Projekt
+```
+
+```bash
+# Erstellt ein neues Projekt mit Namen und Verknüpfung zur Organisation
+gcloud projects create $projectNameId \
+    --name="$projectName" \
+    --organization="$yourOrgId" \
+    --set-as-default
+```
+
+### GCloud Services
+Service werden immer pro Projekt aktiviert/deaktiviert
+```bash
+gcloud services list                # Listet alle aktivierten Services auf
+gcloud services list --available    # Listet alle verfügbaren Services auf
+gcloud services enable $serviceId   # Aktiviert einen Service
+gcloud services disable $serviceId  # Deaktiviert einen Service
+```
+<<<
+
+### GCloud Cluster / GKE
+```bash
+gcloud container get-server-config          # Verfügbare Cluster Versionen
+gcloud compute machine-types list \         # Verfügbaren Maschinen Typen
+       --zones=europe-west3-b               # Für die Region Frankfurt
+
+gcloud container clusters list              # Liste aller vorhandene Cluster
+gcloud container clusters delete $clusterId # Löscht einen Cluster
+```
+
+```bash
+# Erstellt einen neuen Cluster im aktullen Projekt
+gcloud beta container clusters create "$clusterId" \
+    --cluster-version "$clusterVersion" \
+    --machine-type "$machineType" \
+    --num-nodes "$numberOfNodes" \
+    --enable-autorepair \
+    --enable-cloud-logging \
+    --enable-cloud-monitoring \
+    --scopes "compute-rw,storage-rw,default"
+```
+
+### GCloud Storage
+```bash
+gsutil ls                           # Listet alle buckets des aktuellen Projektes
+gsutil ls gs://$bucketName          # Listet den Inhlat eines Buckets
+gsutil mb  -l europe-west3 \        # Neuer Bucket in der Region europe-west3,
+          gs://$bucketName/         # der Bucketname muss global eindeutig sein
+
+gsutil cp foo.txt gs://$bucketName/ # Kopiert die lokale Datei foo.txt in den Bucket
+gsutil rm -r gs://$bucketName       # Entfernt alle Dateien aus dem Bucket (rekursiv)
+gsutil rb gs://$bucketName          # Löscht das Bucket
+```
+
+---
+<<<
+
+## Kubernetes
+
+### Status
+```bash
+kubectl cluster-info        # Zeigt Informationen zum Cluster
+kubectl get nodes -o=wide   # Zeigt vorhandene Nodes und deren Status an
+kubectl get componentstatus # Status System Komponenten (scheduler, etcd, controller)
+kubectl get namespaces      # Zeigt alle Namespaces
+kubectl version             # Version
+```
+
+### Objekt Informationen
+
+kubectl führt jedes Kommando gegen den `default` namespace aus. 
+Soll mit einem anderen Namespace gearbeitet werden, kann dieser über den `-n <namespace>` Parameter definiert werden. 
+`--all-namespaces` kann genutz werden um Informationen zu allen Namspaces abzurufen.
+
+
+```bash
+kubectl get pods                    # Zeigt alle Pods und deren Status an
+kubectl get pods -o wide            # Liste der Pods mit Node Informationen
+
+kubectl logs -f $podId              # Streamed die logs des Pods zu Stdout
+
+kubectl get ingess                  # Zeigt alle Ingress Objekte
+kubectl get services                # Zeigt alle Services
+
+kubectl get deployment $deplName    # Zeigt die Deployment definition
+```
+
+### Objekte erstellen, updaten und löschen
+```bash
+kubectl apply -f file.yaml                  # Erstellt oder Aktualisert die
+                                            # im YAML File definierten Objekte
+
+kubectl scale --replicas=3 -f file.yaml     # Skaliert das ReplicaSet auf 3 replicas
+kubectl delete -f file.yaml                 # Löscht ein Objekt aus dem Cluster
+kubectl exec -it $podId sh                  # Öffnet eine Shell im Pod
+```

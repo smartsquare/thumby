@@ -272,6 +272,11 @@ insbesondere während eines Deployment Prozesses, immer zur Verfügung stehen.
 ---
 </p></details>
 
+Aktivieren des Registry Services.
+```bash
+gcloud services enable containerregistry.googleapis.com
+```
+
 Um die Container Registry dem lokalen Docker Client bekannt zu machen, muss die gcloud Komponente _docker-credential-gcr_ installiert werden:
 
 ```bash
