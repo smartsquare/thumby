@@ -98,10 +98,8 @@ Für die Nutzung des Kubernetes Services müssen folgende Komponenten installier
 
 ```bash
 gcloud components install kubectl   #1
-gcloud components install beta      #2
 ```
 1. *kubectl*: Kubernetes commandline tool zum Steuern des Kubernetes Clusters.
-2. *beta*: Google stellt über die _beta_ und _alpha_ Komponenten neue Funktionalität zur Verfügung, die sich noch im jeweiligen Entwicklungsstadium befindet.
 
 ## Schritt 2: Erstellen eines Projektes (Optional)
 <details><summary>:mag_right: CLICK ME</summary><p>
@@ -151,11 +149,13 @@ Diese Funktion steht aktuell nur in den _beta_ Komponenten zur Verfügung und ka
 </p></details>
 
 ```bash
-gcloud beta billing projects link my-k8s-project-2049 \ #1
-    --billing-account=0X0X0X-0X0X0X-0X0X0X              #2
+gcloud components install beta                          #1
+gcloud beta billing projects link my-k8s-project-2049 \ #2
+    --billing-account=0X0X0X-0X0X0X-0X0X0X              #3
 ```
-1. Erzeugt einen Billing Link zu dem neu erstellten Projekt. Die eingesetzte ID ist die ID des zuvor erstellten Projektes.
-2. Der Billing Account, der verlinkt werden soll. `gcloud beta billing accounts list` gibt eine Liste aller, zur Verfügung stehenden Accounts.
+1. Google stellt über die _beta_ und _alpha_ Komponenten neue Funktionalität zur Verfügung, die sich noch im jeweiligen Entwicklungsstadium befindet.
+2. Erzeugt einen Billing Link zu dem neu erstellten Projekt. Die eingesetzte ID ist die ID des zuvor erstellten Projektes.
+3. Der Billing Account, der verlinkt werden soll. `gcloud beta billing accounts list` gibt eine Liste aller, zur Verfügung stehenden Accounts.
 
 ## Schritt 3: Erstellen des Clusters
 <details><summary>:mag_right: CLICK ME</summary><p>
@@ -194,8 +194,8 @@ die Meldungen ignoriert werden, sind aber zu einem späteren Zeitpunkt sicherlic
 </p></details>
 
 ```bash
-gcloud beta container clusters create "my-first-cluster" \  #1
-    --project my-k8s-project-2049 \                         #2
+gcloud container clusters create "my-first-cluster" \       #1
+    --project thumby-workshop-<num> \                       #2
     --cluster-version "1.10.7-gke.6" \                      #3
     --machine-type "n1-standard-2" \                        #4
     --num-nodes "2" \                                       #5
