@@ -25,6 +25,10 @@ class UploadController(
     @PostMapping("/upload")
     @ResponseBody
     fun handleFileUpload(@RequestParam("file") file: MultipartFile): String {
+        if (!Charsets.US_ASCII.newEncoder().canEncode(file.originalFilename)) {
+            throw RuntimeException("Cowardly refusing to upload file with non-ascii characters in name: " + file.originalFilename)
+        }
+
         val filepath = uploadService.upload(file)
 
         log.info("Image ${file.originalFilename} successfully uploaded to ${filepath}")

@@ -2,6 +2,7 @@ package com.sq.image.upload.uploader
 
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,10 +23,12 @@ class UploadControllerTest {
     private val mockMvc = MockMvcBuilders.standaloneSetup(underTest).build()
 
     private lateinit var file: MockMultipartFile
+    private lateinit var invalidFile: MockMultipartFile
 
     @BeforeEach
     internal fun setUp() {
         file = MockMultipartFile("file", "image.jpg", null, "bar".toByteArray())
+        invalidFile = MockMultipartFile("file", "ïmägë.jpg", null, "bar".toByteArray())
     }
 
     @Test
@@ -53,5 +56,16 @@ class UploadControllerTest {
 
         result.andExpect(status().is5xxServerError)
                 .andExpect(content().string("upload failed"))
+    }
+
+    @Test
+    fun `should reject uploads with non-ascii filenames`() {
+        val result = mockMvc.perform(MockMvcRequestBuilders.multipart("/upload").file(invalidFile))
+                .andDo(print())
+
+        result.andExpect(status().is5xxServerError)
+                .andExpect(content().string("upload failed"))
+
+        verify(exactly = 0) { uploadService.upload(allAny()) }
     }
 }
