@@ -48,7 +48,7 @@ gcloud container clusters delete $clusterId # Löscht einen Cluster
 
 ```bash
 # Erstellt einen neuen Cluster im aktullen Projekt
-gcloud beta container clusters create "$clusterId" \
+gcloud container clusters create "$clusterId" \
     --cluster-version "$clusterVersion" \
     --machine-type "$machineType" \
     --num-nodes "$numberOfNodes" \
@@ -92,8 +92,10 @@ Soll mit einem anderen Namespace gearbeitet werden, kann dieser über den `-n <n
 
 
 ```bash
+kubectl get all                     # Zeigt alle objekte im namespace an
 kubectl get pods                    # Zeigt alle Pods und deren Status an
 kubectl get pods -o wide            # Liste der Pods mit Node Informationen
+kubectl get pod $podName -o yaml    # Zeigt Beschreibung des Pods im YAML-Format an
 
 kubectl logs -f $podId              # Streamed die logs des Pods zu Stdout
 
@@ -109,6 +111,8 @@ kubectl apply -f file.yaml                  # Erstellt oder Aktualisert die
                                             # im YAML File definierten Objekte
 
 kubectl scale --replicas=3 -f file.yaml     # Skaliert das ReplicaSet auf 3 replicas
+kubectl scale --replicas=3 \                # Skaliert das benannte Deployment auf
+              deployment/$deplName          # 3 replicas
 kubectl delete -f file.yaml                 # Löscht ein Objekt aus dem Cluster
 kubectl exec -it $podId sh                  # Öffnet eine Shell im Pod
 ```
