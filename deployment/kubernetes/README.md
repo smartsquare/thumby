@@ -203,6 +203,7 @@ gcloud container clusters create "my-first-cluster" \       #1
     --enable-cloud-logging \                                #7
     --enable-cloud-monitoring \                             #8
     --scopes "compute-rw,storage-rw,default"                #9
+    --zone europe-west3-c                                   #10
 ```
 
 1. Basis Kommando zum erstellen eines neuen Clusters mit der ID: *my-first-cluster*.
@@ -214,7 +215,7 @@ gcloud container clusters create "my-first-cluster" \       #1
 7. Cloud Logging, sammelt, verarbeitet und analysiert Container- und Systemprotokolle, diese können dann in der [Cloud Konsole](https://console.cloud.google.com/logs/viewer) eingesehen werden.
 8. Cloud Monitoring, sammelt, verarbeitet und analysiert Container- und System Metriken, diese können dann in der [Cloud Konsole](https://console.cloud.google.com/logs/viewer) eingesehen werden
 9. Definiert die Berechtigungen, die der Cluster bekommt um auf andere Ressourcen innerhalb des Projektes zuzugreifen.
-
+10. Fordert an, dass der cluster in Frankfurt gehostet werden soll. Nicht notwendig wenn die `gcloud init` Schritte korrekt ausgeführt wurden, aber in der browserbasierten Konsole erforderlich.
 
 ### Status des Clusters
 Ist der Cluster angelegt kann mit `gcloud container clusters list` eine Liste aller erstellten Cluster, im aktuellen Projekt, angezeigt werden.
@@ -302,6 +303,16 @@ Details zur Analyse der Container kann [hier](https://cloud.google.com/container
 
 ---
 </p></details>
+
+### Pullen der Thumby-Images:
+Die vorbereiteten Images für Thumby liegen bereits im global erreichbaren Docker Hub für euch bereit. Um sie in eure private Registry zu kopieren, müsst ihr sie zunächst herunterladen:
+
+```bash
+docker pull smartsquare/thumby-upload-service
+docker pull smartsquare/thumby-gallery-service
+docker pull smartsquare/thumby-generator-service
+```
+
 
 ### Pushen des Images in die Google Registry
 
