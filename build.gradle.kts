@@ -3,17 +3,17 @@ import java.util.Properties
 
 plugins {
 
-    val kotlinVersion = "1.2.71"
+    val kotlinVersion = "1.3.0"
 
     base
     kotlin("jvm") version kotlinVersion apply false
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion apply false
-    id("org.springframework.boot") version "2.0.6.RELEASE" apply false
+    id("org.springframework.boot") version "2.1.0.RELEASE" apply false
     id("io.spring.dependency-management") version "1.0.6.RELEASE" apply false
 
     id("com.google.cloud.tools.jib") version "0.9.13" apply false
 
-    id("io.gitlab.arturbosch.detekt") version "1.0.0.RC8" apply true
+    id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2" apply true
 }
 
 allprojects {
@@ -38,12 +38,11 @@ allprojects {
         set("gcloud-project", props.getProperty("GCLOUD_PROJECT_ID"))
 
         // version management
-        set("coroutines-version", "0.30.2")
         set("google-cloud-storage-version", "1.49.0")
-        set("kotlin-version", "1.2.71")
+        set("kotlin-version", "1.3.0")
         set("hamcrest-version", "2.0.0.0")
         set("json-path-version", "2.4.0")
-        set("mockk-version", "1.8.9")
+        set("mockk-version", "1.8.10.kotlin13")
         set("kluent-version", "1.42")
         set("detekt-version", "1.0.0-gradle-rework-beta3")
 
@@ -56,7 +55,7 @@ allprojects {
 
 buildscript {
 
-    val kotlinVersion = "1.2.71"
+    val kotlinVersion = "1.3.0"
 
     repositories {
         jcenter()
@@ -64,7 +63,7 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE")
     }
 }
 

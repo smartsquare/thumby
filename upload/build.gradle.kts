@@ -63,8 +63,6 @@ tasks.withType<Test> {
 dependencies {
     compile(project(":shared"))
 
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:${ext["coroutines-version"]}")
-
     compile(kotlin("stdlib"))
     compile("org.jetbrains.kotlin:kotlin-reflect")
 
