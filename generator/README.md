@@ -1,1 +1,1 @@
-# thumb-generator-serivce
+# Generator Service
