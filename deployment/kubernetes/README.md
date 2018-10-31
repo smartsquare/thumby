@@ -112,12 +112,12 @@ Ein Projekt ist also eine übergeordnete Organisationseinheit und kann ebenfalls
 </p></details>
 
 ```bash
-gcloud projects create my-k8s-project-2049 \    #1
+gcloud projects create <your-project-id> \    #1
     --name="K8s Demo Project" \                 #2
     --organization=111111111111 \               #3
     --set-as-default \                          #4
 ```
-1. Das gcloud Command zum Anlegen eines Projektes mit der ID '*my-k8s-project-2049*' (die ID muss eindeutig sein).
+1. Das gcloud Command zum Anlegen eines Projektes mit der ID '*<your-project-id>*' (die ID muss eindeutig sein).
 2. Der Name des Projektes.
 3. Die Organisations-ID in der das Projekt angelegt werden soll (siehe folgenden Abschnitt).
 4. Definiert das erstellte Projekt als Standard Projekt für die lokale gcloud Installation.
@@ -150,7 +150,7 @@ Diese Funktion steht aktuell nur in den _beta_ Komponenten zur Verfügung und ka
 
 ```bash
 gcloud components install beta                          #1
-gcloud beta billing projects link my-k8s-project-2049 \ #2
+gcloud beta billing projects link <your-project-id> \   #2
     --billing-account=0X0X0X-0X0X0X-0X0X0X              #3
 ```
 1. Google stellt über die _beta_ und _alpha_ Komponenten neue Funktionalität zur Verfügung, die sich noch im jeweiligen Entwicklungsstadium befindet.
@@ -369,7 +369,7 @@ gcloud components install gsutil
 ```bash
 # gsutil mb -p <projectId> -l <region> gs://my_new_fancy_bucket/
 
-gsutil mb -p my-k8s-project-2049 \              #1
+gsutil mb -p thumby-workshop-<num> \            #1
           -l europe-west3 \                     #2
           gs://k8s_bucket/                      #3
 ```
@@ -385,7 +385,7 @@ Falls ein multi regionales bucket benötigt wird, welches über alle Regionen ei
 die 'Storage Class' gesetzt werden.
 
 ```bash
-gsutil mb -p my-k8s-project-2049 \
+gsutil mb -p thumby-workshop-<num> \
           -l eu \                   #1
           -c multi_regional \       #2
           gs://k8s_bucket_2/
@@ -468,7 +468,7 @@ spec:
   type: NodePort            #6
 ```
 
-1. typ des Objektes
+1. Typ des Objektes
 2. Name des services
 3. Port und Protokoll auf dem der Pod erreichbar ist
 4. Session Affinity, stellt sicher, dass ein User immer auf den gleichen Pod geleitet wird
