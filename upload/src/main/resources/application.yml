@@ -12,3 +12,8 @@ gcp:
 thumbnail-service:
   hostname: image-thumb-generator-service.default
   port: 8888
+
+upload-service:
+  # enable error mode for resilience testing
+  error-mode: false
+  delay-mode: true

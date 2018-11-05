@@ -1,6 +1,7 @@
 package com.sq.image.upload.thumbnail
 
 import org.apache.logging.log4j.LogManager
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.PostMapping
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletRequest
 
 
 @RestController
-class ThumbnailController(val thumbnailService: ThumbnailService) {
+class ThumbnailController(val thumbnailService: ThumbnailService,
+                          @Value("\${upload-service.error-mode}") val errorMode: Boolean = false,
+                          @Value("\${upload-service.delay-mode}") val delayMode: Boolean = true
+) {
 
     private val log = LogManager.getLogger()
 
@@ -20,7 +24,9 @@ class ThumbnailController(val thumbnailService: ThumbnailService) {
     @PostMapping("/thumbnail")
     fun createThumbnail(@RequestBody param: ThumbnailData): String {
 
-        Thread.sleep(getRandomInt().toLong())
+        if (delayMode) {
+            Thread.sleep(getRandomInt().toLong())
+        }
 
         if (shouldThrowRandomException()) {
             throw RuntimeException("Mysterious Exception")
@@ -31,7 +37,7 @@ class ThumbnailController(val thumbnailService: ThumbnailService) {
         return "success"
     }
 
-    private fun shouldThrowRandomException() = getRandomInt() % 5L == 0L
+    private fun shouldThrowRandomException() = (getRandomInt() % 5L == 0L) && errorMode
 
     private fun getRandomInt() = Random().nextInt(1000)
 
