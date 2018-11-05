@@ -52,12 +52,19 @@ Standard Region Frankfurt (europe-west3) und innerhalb dieser Region die Zone 'b
 
 Nach herunterladen und entpacken des [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts) wird die CLI wie folgt konfiguriert:
 
-`gcloud init` Startet den Konfigurationsprozess. Unter anderem wird hier die gewünschte 'Region' und 'Zone' ausgewählt, die die CLI als
+`gcloud init` 
+
+Startet den Konfigurationsprozess. Unter anderem wird hier die gewünschte 'Region' und 'Zone' ausgewählt, die die CLI als
 default nutzen soll. Natürlich kann dies später für jeden genutzten Service angepasst werden.
 
 ```
 region = europe-west3 (Frankfurt)
 zone = europe-west3-b
+```
+
+```bash
+gcloud config set compute/region europe-west3
+gcloud config set compute/zone europe-west3-b
 ```
 
 War die Installation erfolgreich, zeigt `gcloud info` die Konfigurationsparameter und weitere Infos an.
@@ -112,12 +119,12 @@ Ein Projekt ist also eine übergeordnete Organisationseinheit und kann ebenfalls
 </p></details>
 
 ```bash
-gcloud projects create <your-project-id> \    #1
+gcloud projects create thumby-workshop-<num> \  #1
     --name="K8s Demo Project" \                 #2
     --organization=111111111111 \               #3
     --set-as-default \                          #4
 ```
-1. Das gcloud Command zum Anlegen eines Projektes mit der ID '*<your-project-id>*' (die ID muss eindeutig sein).
+1. Das gcloud Command zum Anlegen eines Projektes mit der ID '*thumby-workshop-<num>*' (die ID muss eindeutig sein).
 2. Der Name des Projektes.
 3. Die Organisations-ID in der das Projekt angelegt werden soll (siehe folgenden Abschnitt).
 4. Definiert das erstellte Projekt als Standard Projekt für die lokale gcloud Installation.
@@ -149,9 +156,9 @@ Diese Funktion steht aktuell nur in den _beta_ Komponenten zur Verfügung und ka
 </p></details>
 
 ```bash
-gcloud components install beta                          #1
-gcloud beta billing projects link <your-project-id> \   #2
-    --billing-account=0X0X0X-0X0X0X-0X0X0X              #3
+gcloud components install beta                              #1
+gcloud beta billing projects link thumby-workshop-<num> \   #2
+    --billing-account=0X0X0X-0X0X0X-0X0X0X                  #3
 ```
 1. Google stellt über die _beta_ und _alpha_ Komponenten neue Funktionalität zur Verfügung, die sich noch im jeweiligen Entwicklungsstadium befindet.
 2. Erzeugt einen Billing Link zu dem neu erstellten Projekt. Die eingesetzte ID ist die ID des zuvor erstellten Projektes.
@@ -202,8 +209,12 @@ gcloud container clusters create "my-first-cluster" \       #1
     --enable-autorepair \                                   #6
     --enable-cloud-logging \                                #7
     --enable-cloud-monitoring \                             #8
-    --scopes "compute-rw,storage-rw,default"                #9
-    --zone europe-west3-c                                   #10
+    --scopes "compute-rw,storage-rw,default" \              #9
+    --zone europe-west3-b                                   #10
+```
+
+```
+gcloud container clusters create "my-first-cluster" --project thumby-workshop-<num> --cluster-version "1.10.7-gke.6" --machine-type "n1-standard-2" --num-nodes "2" --enable-autorepair --enable-cloud-logging --enable-cloud-monitoring --scopes "compute-rw,storage-rw,default" --zone europe-west3-b 
 ```
 
 1. Basis Kommando zum erstellen eines neuen Clusters mit der ID: *my-first-cluster*.
@@ -282,9 +293,10 @@ Um die Container Registry dem lokalen Docker Client bekannt zu machen, muss die 
 
 ```bash
 gcloud components install docker-credential-gcr
+gcloud auth configure-docker 
 ```
 
-`gcloud auth configure-docker` fügt den _credHelper_ Eintrag der Docker Konfiguration hinzu, damit ist gcloud als credential helper
+Fügt den _credHelper_ Eintrag der Docker Konfiguration hinzu, damit ist gcloud als credential helper
 registriert, das ermöglicht das pushen der Images in eine Google Docker Registry.
 
 <details><summary>:mag_right: CLICK ME</summary><p>
@@ -295,7 +307,9 @@ Einmal aktiviert, wird jedes Docker Images auf potentielle Sicherheitsprobleme u
 
 Das Feature befindet sich derzeit im _alpha_ Stadium, kann aber bereits getestet werden.
 
-`gcloud service enable containeranalysis.googleapis.com` Zunächst muss der Container-Analyse-Dienst für das Projekt und
+```gcloud service enable containeranalysis.googleapis.com```
+
+Zunächst muss der Container-Analyse-Dienst für das Projekt und
 anschließend das vulnerability scanning auf der Settings Seite der Container Registry aktiviert werden.
 [Enable vulnerability scanning](https://console.cloud.google.com/gcr/settings)
 
@@ -333,8 +347,12 @@ TIP: *Für Java Applikationen*: [Jib](https://github.com/GoogleContainerTools/ji
 Der entsprechende [Docker tag](https://docs.docker.com/engine/reference/commandline/tag) befehlt sieht dann wie folgt aus:
 ```bash
 docker tag [SOURCE_IMAGE] [HOSTNAME]/[PROJECT-ID]/[IMAGE][:TAG]
-docker tag awesome-app gcr.io/my-mcp-project/awesome-app:v1
+```
 
+```bash
+docker tag smartsquare/thumby-upload-service gcr.io/thumby-workshop-<num>/upload-service:v1
+docker tag smartsquare/thumby-gallery-service gcr.io/thumby-workshop-<num>/gallery-service:v1
+docker tag smartsquare/thumby-generator-service gcr.io/thumby-workshop-<num>/generator-service:v1
 ```
 
 `docker push` kopiert nun die Daten in die Registry.
@@ -371,8 +389,13 @@ gcloud components install gsutil
 
 gsutil mb -p thumby-workshop-<num> \            #1
           -l europe-west3 \                     #2
-          gs://k8s_bucket/                      #3
+          gs://k8s_bucket_<num>/                #3
 ```
+
+```bash
+gsutil mb -p thumby-workshop-<num> -l europe-west3 gs://k8s_bucket_<num>/
+```
+
 1. `gsutil` Anweisung um ein neues Bucket zu erstellen (mb = make bucket).
 2. -l definiert die Region in der das Bucket erstellt werden soll, im konkreten Fall, wird ein Bucket in der Region Frankfurt (europe-west3) angelegt.
 3. Definiert den Namen unter dem das Bucket angelegt werden soll.
