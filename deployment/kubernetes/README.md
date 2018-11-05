@@ -5,6 +5,22 @@ generierung von Thumbnails und einer Gallerie zur Anzeige der Ergebnisse.
 
 ![Thumby Components](./thumby.svg)
 
+## TOC
+
+[Schritt 1: Konfiguration des lokalen Google Cloud SDK und der gcloud CLI](#schritt-1-konfiguration-des-lokalen-google-cloud-sdk-und-der-gcloud-cli)
+
+[Schritt 2: (Optional) Erstellen eines Projektes](#schritt-2-erstellen-eines-projektes-optional)
+
+[Schritt 3: Erstellen des Clusters](#schritt-3-erstellen-des-clusters)
+
+[Schritt 4: Container Registry](#schritt-4-container-registry)
+
+[Schritt 5: Cloud Storage](#schritt-5-cloud-storage)
+
+[Schritt 6: Kubernetes Deployment](#schritt-6-kubernetes-deployment)
+
+[Schritt 7: Aufräumen](#schritt-7-aufr%C3%A4umen)
+
 ## Einleitung
 
 Die einzelnen Thumby Services sind bereits in Container verpackt und sollen in der Cloud auf einem Kubernetes Deployt werden.
@@ -440,7 +456,7 @@ TIP: Kosten lassen sich beim Verteilen von statischem Content sparen, indem anst
 ---
 </p></details>
 
-## Schritt 6: Deployment
+## Schritt 6: Kubernetes Deployment
 
 <details><summary>:mag_right: CLICK ME</summary><p>
 
