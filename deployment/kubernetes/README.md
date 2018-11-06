@@ -219,7 +219,7 @@ die Meldungen ignoriert werden, sind aber zu einem späteren Zeitpunkt sicherlic
 ```bash
 gcloud container clusters create "my-first-cluster" \       #1
     --project thumby-workshop-<num> \                       #2
-    --cluster-version "1.10.7-gke.6" \                      #3
+    --cluster-version "1.11.2-gke.9" \                      #3
     --machine-type "n1-standard-2" \                        #4
     --num-nodes "2" \                                       #5
     --enable-autorepair \                                   #6
@@ -230,7 +230,7 @@ gcloud container clusters create "my-first-cluster" \       #1
 ```
 
 ```
-gcloud container clusters create "my-first-cluster" --project thumby-workshop-<num> --cluster-version "1.10.7-gke.6" --machine-type "n1-standard-2" --num-nodes "2" --enable-autorepair --enable-cloud-logging --enable-cloud-monitoring --scopes "compute-rw,storage-rw,default" --zone europe-west3-b 
+gcloud container clusters create "my-first-cluster" --project thumby-workshop-<num> --cluster-version "1.11.2-gke.9" --machine-type "n1-standard-2" --num-nodes "2" --enable-autorepair --enable-cloud-logging --enable-cloud-monitoring --scopes "compute-rw,storage-rw,default" --zone europe-west3-b 
 ```
 
 1. Basis Kommando zum erstellen eines neuen Clusters mit der ID: *my-first-cluster*.
