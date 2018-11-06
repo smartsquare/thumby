@@ -33,4 +33,4 @@ spec:
         ports:
         - containerPort: 8888
         args:
-        - --gcp.bucket-name=thumby_bucket
+        - --gcp.bucket-name=thumby_bucket_<num>

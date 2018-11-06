@@ -46,4 +46,4 @@ spec:
         ports:
         - containerPort: 9000
         args:
-        - --gcp.bucket-name=thumby_bucket
+        - --gcp.bucket-name=thumby_bucket_<num>

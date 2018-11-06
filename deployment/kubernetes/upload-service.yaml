@@ -34,6 +34,6 @@ spec:
         ports:
         - containerPort: 8080
         args:
-        - --gcp.bucket-name=thumby_bucket
+        - --gcp.bucket-name=thumby_bucket_<num>
         - --thumbnail-service.port=8888
         - --thumbnail-service.hostname=generator-service.default
