@@ -492,9 +492,13 @@ Ein Deployment Objekt kombiniert die Definition eines Pods mit dessen ReplicaSet
 Ingress
 Der Ingress managed den externen Zugriff auf die Service des Clusters. 
 
+---
+</p></details>
+
 Zu jedem Thumby Service existiert eine Service sowie eine Deployment definition. Außerdem beinhaltet das Deployment einen Ingress, welcher den Upload- und Gallery-Service von außen erreichbar macht.
 
 Exemplarisch wird hier auf das Deployment file des Upload Services eingegangen, das Deployment der Gallery und des Thumbnailers ist ähnlich.
+Alle YAML files müssen, entsprechend der tags der hochgeladenen docker images, angepasst werden.
 
 Upload Service K8s Definition
 ```yaml
@@ -598,10 +602,11 @@ spec:
 
 `kubectl get ingress` zeigt alle vorhanden ingresses an.   
 
----
-</p></details>
+`kubectl logs -f <pod-id>` gibt die Logs des Pods auf STDOUT aus.
 
-Die Deployment files müssen angepasst und können dann dem Cluster bekanntgemacht werden.
+### Deployment
+
+Mit Hilfe von kubectl werden die Objekte dem Cluster bekannt machen.
 
 ```bash
 kubectl apply -f upload-service.yaml        #1
