@@ -411,11 +411,11 @@ gcloud components install gsutil
 
 gsutil mb -p thumby-workshop-<num> \            #1
           -l europe-west3 \                     #2
-          gs://k8s_bucket_<num>/                #3
+          gs://thumby_bucket_<num>/                #3
 ```
 
 ```bash
-gsutil mb -p thumby-workshop-<num> -l europe-west3 gs://k8s_bucket_<num>/
+gsutil mb -p thumby-workshop-<num> -l europe-west3 gs://thumby_bucket_<num>/
 ```
 
 1. `gsutil` Anweisung um ein neues Bucket zu erstellen (mb = make bucket).
@@ -542,11 +542,11 @@ spec:
     spec:
       containers:           #4
       - name: upload-service
-        image: gcr.io/thumby-2049/upload-service:latest
+        image: gcr.io/thumby-workshop-<num>/upload-service:v1
         ports:
         - containerPort: 8080
         args:
-        - --gcp.bucket-name=thumby_bucket
+        - --gcp.bucket-name=thumby_bucket_<num>
         - --thumbnail-service.port=8888
         - --thumbnail-service.hostname=generator-service.default
 ```
@@ -642,5 +642,3 @@ gsutil rm -r gs://<repository-name>             #4
 2. Listet alle vorhanden Buckets
 3. Löscht das thumbnail bucket
 4. Löscht die Registry images
-
-

@@ -42,7 +42,7 @@ spec:
           initialDelaySeconds: 45
           periodSeconds: 3
           failureThreshold: 3
-        image: gcr.io/thumby-2049/gallery-service:latest
+        image: gcr.io/thumby-workshop-<num>/gallery-service:v1
         ports:
         - containerPort: 9000
         args:

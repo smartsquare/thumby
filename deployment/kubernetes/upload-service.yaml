@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: upload-service
-        image: gcr.io/thumby-2049/upload-service:latest
+        image: gcr.io/thumby-workshop-<num>/upload-service:v1
         ports:
         - containerPort: 8080
         args:

@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: generator-service
-        image: gcr.io/thumby-2049/generator-service:latest
+        image: gcr.io/thumby-workshop-<num>/generator-service:v1
         ports:
         - containerPort: 8888
         args:
