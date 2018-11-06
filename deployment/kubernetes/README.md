@@ -373,6 +373,12 @@ docker tag smartsquare/thumby-generator-service gcr.io/thumby-workshop-<num>/gen
 
 `docker push` kopiert nun die Daten in die Registry.
 
+```bash
+docker push gcr.io/thumby-workshop-<num>/upload-service:v1
+docker push gcr.io/thumby-workshop-<num>/gallery-service:v1
+docker push gcr.io/thumby-workshop-<num>/generator-service:v1
+```
+
 `gcloud container images list` listet den Inhalt der Registry auf.
 
 ## Schritt 5: Cloud Storage
